@@ -101,7 +101,7 @@ export default function Hero() {
               <div className="arch-frame w-full h-full relative">
                 {/* Fallback pattern or stunning cake photo from Unsplash */}
                 <img
-                  src="https://images.unsplash.com/photo-1535141192574-5d4897c13636?auto=format&fit=crop&w=800&q=80"
+                  src="/hero-familia.png"
                   alt="La Nieta de Portella - Tarta Premium de Bodas"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"

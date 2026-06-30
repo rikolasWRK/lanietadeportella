@@ -32,7 +32,7 @@ export default function Nosotros() {
               <div className="arch-frame w-full h-full relative">
                 {/* Beautiful chef crafting bakes image */}
                 <img
-                  src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=600&q=80"
+                  src="/angelica.jpeg"
                   alt="Maestra pastelera de La Nieta de Portella amasando recetas familiares de la abuela Angela"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"

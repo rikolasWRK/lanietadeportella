@@ -25,28 +25,28 @@ export default function Catalog({ onAddToCart }: CatalogProps) {
       id: "tortas" as const,
       name: "Tortas",
       subtitle: "VER COLECCIÓN",
-      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=600&q=80",
+      image: "/torta-mama.jpeg",
       tagline: "Tortas de Vitrina"
     },
     {
       id: "cupcakes" as const,
       name: "Cupcakes",
       subtitle: "VER SABORES",
-      image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=600&q=80",
+      image: "/cupcakes-caja6.jpeg",
       tagline: "Cupcakes de Autor"
     },
     {
       id: "bocaditos" as const,
       name: "Bocaditos",
       subtitle: "EVENTOS & CATERING",
-      image: "https://images.unsplash.com/photo-1558326567-98ae2405596b?auto=format&fit=crop&w=600&q=80",
+      image: "/caja-regalo.jpeg",
       tagline: "Bocaditos Finos"
     },
     {
       id: "cafe" as const,
       name: "El Café",
       subtitle: "NUESTRA HERENCIA CAFETALERA",
-      image: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=600&q=80",
+      image: "/cafe-taza.jpeg",
       tagline: "Café Don Antonio"
     }
   ];
