@@ -1,0 +1,6 @@
+{
+  "name": "La Nieta de Portella",
+  "description": "Pastelería fina y café de especialidad Don Antonio. Disfruta de nuestras tortas de vitrina artesanales, cupcakes de autor y exquisitos macarons con entrega rápida en Tarapoto.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

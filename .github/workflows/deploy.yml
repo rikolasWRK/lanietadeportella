@@ -1,0 +1,52 @@
+name: 🚀 Deploy a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permite lanzarlo manualmente desde GitHub
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 🔨 Construir sitio
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Descargar código
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: 🏗️ Construir para producción
+        run: npm run build
+
+      - name: 📤 Subir artefacto de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: 🌐 Publicar en GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: 🚀 Desplegar a Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

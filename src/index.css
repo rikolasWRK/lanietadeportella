@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Abril Fatface", serif;
+  --font-sans: "Poppins", sans-serif;
+
+  --color-primary-bg: #FDE9E1;
+  --color-secondary-bg: #E9E3C8;
+  --color-muted-accent: #E7C4C1;
+  --color-action-cta: #EB4329;
+  --color-text-main: #281808;
+
+  --color-dusty-rose: #E7C4C1;
+  --color-vibrant-coral: #EB4329;
+  --color-dark-chocolate: #281808;
+  --color-cream-surface: #E9E3C8;
+}
+
+/* Custom Utilities and Base overrides */
+.arch-frame {
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  overflow: hidden;
+}
+
+/* Base body style for global consistency */
+body {
+  background-color: #FDE9E1;
+  color: #281808;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Glassmorphism Header Class */
+.glass-nav {
+  background-color: rgba(253, 233, 225, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(40, 24, 8, 0.1);
+}
+
+/* Custom bottom border-only input for high-end editorial feel */
+.input-editorial {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #281808;
+  border-radius: 0;
+  padding: 8px 0;
+  color: #281808;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.input-editorial:focus {
+  border-bottom-color: #EB4329;
+}
