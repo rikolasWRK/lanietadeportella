@@ -42,34 +42,58 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
         }`}
         id="global-navigation"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Brand Mark (Left-aligned lockup) */}
-            <a href="#" className="flex flex-col group select-none" id="brand-logo-nav">
-              <span className="font-display text-lg sm:text-2xl tracking-normal text-dark-chocolate leading-none transition-colors group-hover:text-action-cta">
-                la NIETA de PORTELLA
-              </span>
-              <span className="font-sans text-[10px] sm:text-xs font-semibold tracking-widest text-action-cta uppercase mt-0.5 leading-none">
-                HAPPY BAKES
-              </span>
-            </a>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="flex items-center justify-between w-full relative">
+            {/* Left Navigation Links (Desktop) */}
+            <div className="hidden md:flex items-center gap-4 lg:gap-8 z-10">
+              <a
+                href="#nosotros"
+                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+              >
+                Nosotros
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
+              </a>
+              <a
+                href="#carta"
+                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+              >
+                Carta/Tienda
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
+              </a>
+            </div>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8 lg:space-x-10" id="desktop-nav-links">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="font-sans text-xs lg:text-sm font-medium tracking-wider text-dark-chocolate/80 uppercase hover:text-action-cta transition-colors duration-300 relative py-1 group"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
-                </a>
-              ))}
+            {/* Logo in absolute center */}
+            <div className="absolute left-1/2 -translate-x-1/2 text-center select-none z-10">
+              <a href="#" className="flex flex-col items-center justify-center">
+                <span className="font-display text-xl sm:text-2xl tracking-normal text-vibrant-coral leading-none">
+                  La Nieta de Portella
+                </span>
+                <span className="font-sans text-[9px] tracking-[0.3em] text-dark-chocolate/60 uppercase mt-1 leading-none">
+                  HAPPY BAKES
+                </span>
+              </a>
             </div>
 
             {/* Interactive Functional Controls (Right side) */}
-            <div className="flex items-center space-x-3 sm:space-x-4" id="nav-controls">
+            <div className="flex items-center space-x-3 sm:space-x-4 z-10 ml-auto" id="nav-controls">
+              {/* Right Navigation Links (Desktop) */}
+              <div className="hidden md:flex items-center gap-4 lg:gap-8 mr-4 lg:mr-8">
+                <a
+                  href="#cafe-antonio"
+                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+                >
+                  Café Don Antonio
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
+                </a>
+                <a
+                  href="#contacto"
+                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+                >
+                  Contacto
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
+                </a>
+              </div>
+
               {/* Search utility */}
               <button
                 className="p-2 text-dark-chocolate/80 hover:text-action-cta hover:bg-dark-chocolate/5 rounded-full transition-all duration-300 hidden sm:block"

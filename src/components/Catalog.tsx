@@ -25,28 +25,28 @@ export default function Catalog({ onAddToCart }: CatalogProps) {
       id: "tortas" as const,
       name: "Tortas",
       subtitle: "VER COLECCIÓN",
-      image: "/torta-mama.jpeg",
+      image: "torta-mama.jpeg",
       tagline: "Tortas de Vitrina"
     },
     {
       id: "cupcakes" as const,
       name: "Cupcakes",
       subtitle: "VER SABORES",
-      image: "/cupcakes-caja6.jpeg",
+      image: "cupcakes-caja6.jpeg",
       tagline: "Cupcakes de Autor"
     },
     {
       id: "bocaditos" as const,
       name: "Bocaditos",
       subtitle: "EVENTOS & CATERING",
-      image: "/caja-regalo.jpeg",
+      image: "caja-regalo.jpeg",
       tagline: "Bocaditos Finos"
     },
     {
       id: "cafe" as const,
       name: "El Café",
       subtitle: "NUESTRA HERENCIA CAFETALERA",
-      image: "/cafe-taza.jpeg",
+      image: "cafe-taza.jpeg",
       tagline: "Café Don Antonio"
     }
   ];
@@ -110,52 +110,49 @@ ${product.category === "tortas" ? `\n(Por favor coordinar dedicatoria escrita en
         </div>
 
         {/* Categories Row (Exact Mockup Layout Match) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-20" id="categories-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20" id="categories-grid">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex flex-col items-center group text-center cursor-pointer select-none transition-all duration-500`}
+                className="group block text-center hover-lift cursor-pointer w-full focus:outline-none select-none"
                 id={`cat-select-${cat.id}`}
               >
-                {/* Visual arch-framed selector */}
-                <div
-                  className={`w-full max-w-[200px] aspect-[3/4] p-1 border rounded-t-full rounded-b-xl mb-4 transition-all duration-500 ${
-                    isActive
-                      ? "border-action-cta bg-cream-surface/50 scale-[1.03] shadow-md"
-                      : "border-dark-chocolate/10 hover:border-dark-chocolate/30 hover:scale-[1.01]"
+                <div 
+                  className={`arch-frame w-full aspect-[4/5] bg-cream-surface/20 mb-6 overflow-hidden relative border border-dark-chocolate/10 transition-all duration-300 ${
+                    isActive ? "shadow-md scale-[1.02]" : "shadow-xs group-hover:shadow-sm"
                   }`}
                 >
-                  <div className="arch-frame w-full h-full bg-secondary-bg relative">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className={`w-full h-full object-cover transition-all duration-700 ${
-                        isActive ? "scale-105" : "group-hover:scale-103"
-                      }`}
-                      referrerPolicy="no-referrer"
-                    />
-                    {/* Hover Tint Overlay */}
-                    <div
-                      className={`absolute inset-0 bg-action-cta/10 transition-opacity duration-300 ${
-                        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-10"
-                      }`}
-                    />
-                  </div>
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      isActive ? "scale-105" : "group-hover:scale-105"
+                    }`}
+                    referrerPolicy="no-referrer"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-action-cta/5 transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-0 group-hover:opacity-10"
+                    }`}
+                  />
                 </div>
-
-                <h3 className="font-display text-xl sm:text-2xl text-dark-chocolate group-hover:text-action-cta transition-colors">
+                <h4 
+                  className={`font-sans text-lg font-semibold mb-1 transition-colors ${
+                    isActive ? "text-action-cta" : "text-dark-chocolate group-hover:text-action-cta"
+                  }`}
+                >
                   {cat.name}
-                </h3>
-                <span
-                  className={`font-sans text-[9px] sm:text-[10px] font-bold tracking-widest mt-1.5 transition-colors ${
-                    isActive ? "text-action-cta" : "text-dark-chocolate/60 group-hover:text-action-cta"
+                </h4>
+                <p 
+                  className={`font-sans text-xs tracking-widest uppercase transition-colors ${
+                    isActive ? "text-action-cta font-bold" : "text-on-surface-variant group-hover:text-action-cta"
                   }`}
                 >
                   {cat.subtitle}
-                </span>
+                </p>
               </button>
             );
           })}

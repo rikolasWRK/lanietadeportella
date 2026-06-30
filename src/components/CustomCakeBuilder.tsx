@@ -115,7 +115,7 @@ export default function CustomCakeBuilder() {
                 <div className="relative w-full max-w-sm aspect-[4/5] bg-secondary-bg/25 p-2 border border-dark-chocolate/10 rounded-t-full rounded-b-xl overflow-hidden shadow-lg">
                   <div className="arch-frame w-full h-full">
                     <img
-                      src="/torta-mama.jpeg"
+                      src="torta-mama.jpeg"
                       alt="Torta personalizada de ejemplo"
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"

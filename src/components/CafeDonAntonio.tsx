@@ -39,9 +39,9 @@ export default function CafeDonAntonio() {
               <div className="arch-frame w-full h-full relative bg-black flex items-center justify-center p-6">
                 {/* Official Cafe Don Antonio White/Black logo */}
                 <img
-                  src="/input_file_4.png"
+                  src="cafe-taza.jpeg"
                   alt="Logo Oficial Café Don Antonio de Especialidad"
-                  className="w-full h-full object-contain transition-transform duration-750 group-hover:scale-103"
+                  className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-103"
                   referrerPolicy="no-referrer"
                 />
               </div>

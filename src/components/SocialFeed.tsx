@@ -11,42 +11,42 @@ export default function SocialFeed() {
   const feedItems = [
     {
       id: 1,
-      image: "/cupcake-gigante.jpeg",
+      image: "cupcake-gigante.jpeg",
       likes: "342",
       comments: "14",
       alt: "Un bocado de torta húmeda de chocolate"
     },
     {
       id: 2,
-      image: "/torta-mama.jpeg",
+      image: "torta-mama.jpeg",
       likes: "856",
       comments: "25",
       alt: "Manos amasando recetas familiares con harina"
     },
     {
       id: 3,
-      image: "/cupcakes-caja6.jpeg",
+      image: "cupcakes-caja6.jpeg",
       likes: "421",
       comments: "8",
       alt: "Croissants recién horneados y dorados"
     },
     {
       id: 4,
-      image: "/cafe-taza.jpeg",
+      image: "cafe-taza.jpeg",
       likes: "289",
       comments: "32",
       alt: "Arte latte de capuccino de especialidad"
     },
     {
       id: 5,
-      image: "/caja-regalo.jpeg",
+      image: "caja-regalo.jpeg",
       likes: "567",
       comments: "19",
       alt: "Interiores minimalistas y elegantes de nuestra pastelería"
     },
     {
       id: 6,
-      image: "/cupcake-individual.jpeg",
+      image: "cupcake-individual.jpeg",
       likes: "398",
       comments: "22",
       alt: "Caja de dulces premium listos para delivery"

@@ -4,152 +4,123 @@
  */
 
 import { motion } from "motion/react";
-import { ChevronRight, ArrowDown } from "lucide-react";
+import { Cake } from "lucide-react";
 
 export default function Hero() {
   return (
-    <header className="relative min-h-[calc(100vh-4rem)] flex items-center pt-8 pb-16 overflow-hidden bg-primary-bg" id="hero-section">
-      {/* Decorative Fine-Line Flourishes */}
-      <div className="absolute top-1/4 left-10 w-48 h-48 opacity-10 pointer-events-none select-none border border-dark-chocolate rounded-full border-dashed animate-pulse" />
-      <div className="absolute bottom-12 right-12 w-96 h-96 opacity-5 pointer-events-none select-none border border-dark-chocolate rounded-full border-double" />
+    <section className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12 md:py-24" id="hero-section">
+      {/* Background Video with adjusted exposure (brightness) and opacity */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-80 brightness-[0.85]"
+      >
+        <source src="beacons-bg2.mp4" type="video/mp4" />
+      </video>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
+      {/* Subtle light overlay to guarantee dark text readability */}
+      <div className="absolute inset-0 bg-primary-bg/40 z-0 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+        {/* Left Column: Text Content & Actions */}
+        <div className="order-2 md:order-1 text-left">
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="font-sans text-xs font-bold tracking-widest text-vibrant-coral mb-4 block"
+          >
+            ARTESANÍA EN CADA BOCADO
+          </motion.span>
           
-          {/* Left Column: Text Content & Actions */}
-          <div className="md:col-span-6 space-y-6 text-dark-chocolate text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-4"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark-chocolate mb-8 leading-tight"
+          >
+            Pasión por endulzar la vida
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-sans text-base sm:text-lg text-on-surface-variant max-w-md mb-12 font-light leading-relaxed"
+          >
+            Recetas familiares que han trascendido generaciones, elaboradas con los ingredientes más finos para crear momentos inolvidables.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <a
+              className="inline-block bg-vibrant-coral text-primary-bg px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:opacity-90 transition-all active:scale-95 text-center shadow-md"
+              href="#carta"
             >
-              <span className="font-sans text-xs font-bold tracking-widest text-action-cta uppercase inline-block bg-action-cta/10 px-3 py-1 rounded-full">
-                Artesanía en cada bocado
-              </span>
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight text-dark-chocolate">
-                Pasión por <br className="hidden sm:inline" />
-                <span className="text-action-cta italic font-normal">endulzar</span> la vida
-              </h1>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-sans text-base sm:text-lg font-light leading-relaxed text-dark-chocolate/80 max-w-xl"
+              Ver Nuestra Carta
+            </a>
+            <a
+              className="inline-block border border-dark-chocolate text-dark-chocolate px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:bg-dark-chocolate hover:text-primary-bg transition-all text-center"
+              href="#nosotros"
             >
-              Pastelería fina nacida de un legado familiar inquebrantable, horneada paso a paso con insumos premium y combinada con el alma aromática del café de especialidad Don Antonio.
-            </motion.p>
+              Nuestro Legado
+            </a>
+          </motion.div>
+        </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
-              id="hero-actions"
-            >
-              <a
-                href="#carta"
-                className="px-8 py-4 bg-action-cta text-primary-bg font-sans rounded-xl font-medium tracking-wide flex items-center justify-center gap-2 shadow-md hover:bg-opacity-95 transition-all hover:translate-y-[-2px] hover:shadow-lg duration-300"
-                id="hero-primary-cta"
-              >
-                <span>Explorar Carta Premium</span>
-                <ChevronRight className="w-4 h-4" />
-              </a>
-              <a
-                href="#personalizar"
-                className="px-8 py-4 border-2 border-dark-chocolate/20 text-dark-chocolate hover:border-dark-chocolate bg-transparent font-sans rounded-xl font-medium tracking-wide flex items-center justify-center gap-2 transition-all hover:bg-dark-chocolate/5 duration-300"
-                id="hero-secondary-cta"
-              >
-                <span>Torta Personalizada</span>
-              </a>
-            </motion.div>
-
-            {/* Quick trust metrics */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="pt-8 border-t border-dark-chocolate/10 grid grid-cols-3 gap-6"
-            >
-              <div>
-                <p className="font-display text-2xl text-action-cta">100%</p>
-                <p className="text-xs font-light text-dark-chocolate/70">Insumos Premium</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-action-cta">Desde 2012</p>
-                <p className="text-xs font-light text-dark-chocolate/70">Tradición Familiar</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-action-cta">Sca 84+</p>
-                <p className="text-xs font-light text-dark-chocolate/70">Café Especialidad</p>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Large Premium Arch Placeholder */}
-          <div className="md:col-span-6 relative flex justify-center items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative w-full max-w-md aspect-[3/4] bg-cream-surface/30 p-2 border border-dark-chocolate/10 rounded-t-full rounded-b-2xl shadow-xl group"
-              id="hero-image-container"
-            >
-              {/* Outer arch wrapper */}
-              <div className="arch-frame w-full h-full relative">
-                {/* Fallback pattern or stunning cake photo from Unsplash */}
-                <img
-                  src="/hero-familia.png"
-                  alt="La Nieta de Portella - Tarta Premium de Bodas"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Visual Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-chocolate/20 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Overlapping Interactive Spinning Badge */}
-              <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 w-28 h-28 sm:w-36 sm:h-36 bg-secondary-bg border border-dark-chocolate/20 rounded-full flex items-center justify-center p-1 shadow-lg pointer-events-none select-none z-10">
-                <div className="w-full h-full relative flex items-center justify-center">
-                  {/* Rotating SVG Text */}
-                  <svg
-                    viewBox="0 0 100 100"
-                    className="w-full h-full animate-[spin_16s_linear_infinite]"
-                  >
-                    <defs>
-                      <path
-                        id="textPath"
-                        d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
-                      />
-                    </defs>
-                    <text className="font-sans text-[7.5px] font-bold tracking-[0.25em] fill-dark-chocolate">
-                      <textPath href="#textPath" startOffset="0%">
-                        • HAPPY BAKES • WE BAKE YOU HAPPY
-                      </textPath>
-                    </text>
-                  </svg>
-                  
-                  {/* Mini-Logo Centered */}
-                  <div className="absolute w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary-bg flex flex-col items-center justify-center border border-dark-chocolate/10 text-center">
-                    <span className="font-display text-[9px] text-action-cta">Est.</span>
-                    <span className="font-sans text-[10px] font-bold text-dark-chocolate leading-none">2012</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Scroll Indicator helper */}
-            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-60">
-              <span className="font-sans text-[10px] uppercase tracking-widest text-dark-chocolate">Deslizar</span>
-              <ArrowDown className="w-4 h-4 text-action-cta animate-bounce" />
+        {/* Right Column: Hero Image with Spinning Badge */}
+        <div className="order-1 md:order-2 relative flex justify-center items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative w-full max-w-md"
+          >
+            <div className="arch-frame w-full aspect-[4/5] bg-dusty-rose overflow-hidden shadow-2xl relative">
+              <img
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                src="fix-angelica.png"
+                alt="La Nieta de Portella - Tarta Premium de Bodas"
+                referrerPolicy="no-referrer"
+              />
             </div>
-          </div>
-
+            
+            {/* Rotating Circle Badge Overlapping */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -45 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="absolute -bottom-8 -left-8 w-32 h-32 md:w-48 md:h-48 bg-cream-surface rounded-full flex items-center justify-center p-4 shadow-lg"
+            >
+              <svg
+                viewBox="0 0 100 100"
+                className="w-full h-full animate-[spin_20s_linear_infinite] fill-dark-chocolate overflow-visible"
+              >
+                <path
+                  d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                  fill="transparent"
+                  id="circlePath"
+                />
+                <text className="font-sans text-[9px] font-bold tracking-[0.25em] uppercase fill-dark-chocolate">
+                  <textPath href="#circlePath">
+                    HAPPY BAKES • BAKES HAPPY • HAPPY BAKES • BAKES HAPPY •
+                  </textPath>
+                </text>
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <Cake className="w-8 h-8 md:w-12 md:h-12 text-vibrant-coral" />
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-    </header>
+    </section>
   );
 }
+
