@@ -177,9 +177,10 @@ export const CAKE_THEMES = [
 ];
 
 // --- CONTACT INFO ---
-export const CONTACT_WHATSAPP_NUMBER = "51942123456"; // Tarapoto, Peru number formatted
-export const BRANCH_LOCATION = "Jr. San Martín 456, Tarapoto, San Martín, Perú";
-export const BRANCH_HOURS = "Lunes a Sábado: 8:00 AM - 9:00 PM | Domingos: 9:00 AM - 7:00 PM";
+export const CONTACT_WHATSAPP_NUMBER = "51984365755"; // Número principal WhatsApp
+export const BRANCH_LOCATION = "Jr. Lamas 173, Tarapoto, San Martín, Perú";
+export const BRANCH_HOURS = "Lunes a Sábado: 9:00 AM - 1:00 PM | 4:00 PM - 8:30 PM";
 export const INSTAGRAM_USERNAME = "lanietadeportella";
-export const BRAND_PHONE = "+51 942 123 456";
-export const BRAND_EMAIL = "hola@lanietadeportella.pe";
+export const BRAND_PHONE = "+51 984 365 755 / +51 942 951 403";
+export const BRAND_EMAIL = "lanietadeportella@gmail.com";
+
