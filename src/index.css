@@ -25,6 +25,21 @@
   overflow: hidden;
 }
 
+/* ── Category card 3D forward-tilt on hover ── */
+.cat-card-3d {
+  transition:
+    transform  0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.group:hover .cat-card-3d {
+  transform: rotateX(12deg) translateY(-4px);
+  box-shadow: rgba(40, 24, 8, 0.18) 0px 22px 44px;
+}
+
+
 /* Base body style for global consistency */
 body {
   background-color: #fff8f5;

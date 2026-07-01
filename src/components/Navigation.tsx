@@ -4,46 +4,92 @@
  */
 
 import { useState, useEffect } from "react";
-import { ShoppingBag, Search, User, Menu, X, Phone } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { Search, Menu, X } from "lucide-react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 
-interface NavigationProps {
-  onOpenCart: () => void;
-  cartCount: number;
-}
-
-export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
+export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Motion value tracking scroll position (0 = top, 1 = scrolled)
+  const scrollProgress = useMotionValue(0);
+
+  // Smooth spring — stiffness high enough to feel snappy but low enough to glide
+  const smoothProgress = useSpring(scrollProgress, {
+    stiffness: 120,
+    damping: 22,
+    restDelta: 0.001,
+  });
+
+  // Derive animated CSS values from the spring
+  const navPaddingY   = useTransform(smoothProgress, [0, 1], [28, 16]); // px: 7 → 4
+  const bgOpacity     = useTransform(smoothProgress, [0, 1], [0, 0.92]);
+  const borderOpacity = useTransform(smoothProgress, [0, 1], [0, 0.06]);
+  const shadowBlur    = useTransform(smoothProgress, [0, 1], [0, 12]);
+  const logoScale     = useTransform(smoothProgress, [0, 1], [1, 0.88]);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const scrolled = window.scrollY > 50;
+      setIsScrolled(scrolled);
+      scrollProgress.set(scrolled ? 1 : 0);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollProgress]);
 
   const navLinks = [
-    { label: "Nosotros", href: "#nosotros" },
-    { label: "La Carta", href: "#carta" },
-    { label: "Tortas Personalizadas", href: "#personalizar" },
-    { label: "Café Don Antonio", href: "#cafe-antonio" },
-    { label: "Contacto", href: "#contacto" }
+    { label: "Nosotros",             href: "#nosotros" },
+    { label: "La Carta",             href: "#carta" },
+    { label: "Tortas Personalizadas",href: "#personalizar" },
+    { label: "Café Don Antonio",     href: "#cafe-antonio" },
+    { label: "Contacto",             href: "#contacto" }
   ];
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? "py-3 bg-primary-bg/90 backdrop-blur-md shadow-sm border-b border-dark-chocolate/5"
-            : "py-5 bg-transparent"
-        }`}
+      <motion.nav
         id="global-navigation"
+        style={{ paddingTop: navPaddingY, paddingBottom: navPaddingY }}
+        className="fixed top-0 left-0 right-0 z-40"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+        {/* Animated frosted glass background layer */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 backdrop-blur-md pointer-events-none"
+          style={{ opacity: bgOpacity }}
+        />
+
+        {/* Animated bottom border */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 right-0 h-px bg-dark-chocolate pointer-events-none"
+          style={{ opacity: borderOpacity }}
+        />
+
+        {/* Animated drop shadow layer */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            boxShadow: useTransform(
+              shadowBlur,
+              (v) => `0 ${v * 0.5}px ${v}px rgba(0,0,0,0.06)`
+            ),
+          }}
+        />
+
+        {/* Solid background colour that fades in */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 bg-primary-bg pointer-events-none"
+          style={{ opacity: bgOpacity }}
+        />
+
+        {/* Content */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
           <div className="flex items-center justify-between w-full relative">
+
             {/* Left Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center gap-4 lg:gap-8 z-10">
               <a
@@ -62,19 +108,22 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
               </a>
             </div>
 
-            {/* Logo in absolute center */}
-            <div className="absolute left-1/2 -translate-x-1/2 text-center select-none z-10">
+            {/* Logo — scales down slightly on scroll */}
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 text-center select-none z-10 origin-center"
+              style={{ scale: logoScale }}
+            >
               <a href="#" className="flex flex-col items-center justify-center">
-                <span className="font-display text-xl sm:text-2xl tracking-normal text-vibrant-coral leading-none">
+                <span className="font-display text-2xl sm:text-3xl lg:text-4xl tracking-normal text-vibrant-coral leading-none">
                   La Nieta de Portella
                 </span>
-                <span className="font-sans text-[9px] tracking-[0.3em] text-dark-chocolate/60 uppercase mt-1 leading-none">
+                <span className="font-sans text-[11px] tracking-[0.35em] text-dark-chocolate/60 uppercase mt-1.5 leading-none">
                   HAPPY BAKES
                 </span>
               </a>
-            </div>
+            </motion.div>
 
-            {/* Interactive Functional Controls (Right side) */}
+            {/* Right side controls */}
             <div className="flex items-center space-x-3 sm:space-x-4 z-10 ml-auto" id="nav-controls">
               {/* Right Navigation Links (Desktop) */}
               <div className="hidden md:flex items-center gap-4 lg:gap-8 mr-4 lg:mr-8">
@@ -103,37 +152,6 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
                 <Search className="w-5 h-5" />
               </button>
 
-              {/* User / Profile link */}
-              <button
-                className="p-2 text-dark-chocolate/80 hover:text-action-cta hover:bg-dark-chocolate/5 rounded-full transition-all duration-300 hidden sm:block"
-                aria-label="Perfil de usuario"
-                id="user-profile-btn"
-              >
-                <User className="w-5 h-5" />
-              </button>
-
-              {/* Cart Drawer Toggle Button */}
-              <button
-                onClick={onOpenCart}
-                className="p-2 text-dark-chocolate/80 hover:text-action-cta hover:bg-dark-chocolate/5 rounded-full transition-all duration-300 relative cursor-pointer"
-                aria-label="Ver bolsa de compras"
-                id="cart-trigger-btn"
-              >
-                <ShoppingBag className="w-5 h-5" />
-                <AnimatePresence>
-                  {cartCount > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      exit={{ scale: 0 }}
-                      className="absolute top-0 right-0 w-4 h-4 bg-action-cta text-primary-bg font-sans text-[9px] font-bold rounded-full flex items-center justify-center shadow-xs"
-                    >
-                      {cartCount}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </button>
-
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -144,6 +162,7 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
+
           </div>
         </div>
 
@@ -154,7 +173,8 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-primary-bg border-b border-dark-chocolate/10 shadow-lg overflow-hidden"
+              transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+              className="relative md:hidden bg-primary-bg border-b border-dark-chocolate/10 shadow-lg overflow-hidden"
               id="mobile-dropdown-menu"
             >
               <div className="px-4 pt-2 pb-6 space-y-3">
@@ -175,21 +195,15 @@ export default function Navigation({ onOpenCart, cartCount }: NavigationProps) {
                   >
                     <Search className="w-4 h-4" /> Buscar
                   </button>
-                  <button
-                    className="flex items-center gap-2 font-sans text-xs text-dark-chocolate/80 hover:text-action-cta p-2"
-                    id="mobile-account-btn"
-                  >
-                    <User className="w-4 h-4" /> Mi Cuenta
-                  </button>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
+      </motion.nav>
 
       {/* Spacer to avoid layout jump with fixed nav */}
-      <div className="h-16 w-full" />
+      <div className="h-20 w-full" />
     </>
   );
 }

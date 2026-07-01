@@ -4,7 +4,6 @@
  */
 
 import { motion } from "motion/react";
-import { Cake } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -30,7 +29,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-xs font-bold tracking-widest text-vibrant-coral mb-4 block"
+            className="font-sans text-sm font-bold tracking-[0.25em] text-vibrant-coral mb-4 block"
           >
             ARTESANÍA EN CADA BOCADO
           </motion.span>
@@ -98,6 +97,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.5 }}
               className="absolute -bottom-8 -left-8 w-32 h-32 md:w-48 md:h-48 bg-cream-surface rounded-full flex items-center justify-center p-4 shadow-lg"
             >
+              {/* Spinning text ring */}
               <svg
                 viewBox="0 0 100 100"
                 className="w-full h-full animate-[spin_20s_linear_infinite] fill-dark-chocolate overflow-visible"
@@ -113,8 +113,15 @@ export default function Hero() {
                   </textPath>
                 </text>
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <Cake className="w-8 h-8 md:w-12 md:h-12 text-vibrant-coral" />
+
+              {/* Static center image — S6 sticker */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6">
+                <img
+                  src="/lanietadeportella/S6.png"
+                  alt="La Nieta de Portella"
+                  className="w-full h-full object-contain"
+                  draggable={false}
+                />
               </div>
             </motion.div>
           </motion.div>
