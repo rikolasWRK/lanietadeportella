@@ -161,7 +161,7 @@ export default function Navigation() {
                 <span className="font-display text-2xl sm:text-3xl lg:text-4xl tracking-normal text-vibrant-coral leading-none">
                   La Nieta de Portella
                 </span>
-                <span className="font-sans text-[11px] tracking-[0.35em] text-dark-chocolate/60 uppercase mt-1.5 leading-none">
+                <span className="font-sans text-[11px] tracking-[0.35em] text-dark-chocolate/75 uppercase mt-1.5 leading-none">
                   HAPPY BAKES
                 </span>
               </a>

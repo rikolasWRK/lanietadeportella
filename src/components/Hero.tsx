@@ -15,12 +15,16 @@ export default function Hero() {
       className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12 md:py-24"
       id="hero-section"
     >
-      {/* Background Video with adjusted exposure (brightness) and opacity */}
+      {/* Background Video with adjusted exposure (brightness) and opacity.
+          The poster paints instantly so it becomes the LCP element while the
+          video streams in behind it. */}
       <video
         autoPlay
         loop
         muted
         playsInline
+        preload="metadata"
+        poster={asset("hero-poster.webp")}
         className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-80 brightness-[0.85]"
       >
         <source src={asset("beacons-bg2.mp4")} type="video/mp4" />

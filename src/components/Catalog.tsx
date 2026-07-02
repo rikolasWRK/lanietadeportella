@@ -136,13 +136,13 @@ export default function Catalog() {
                 </div>
 
                 {/* Title — dark, turns red + underline appears on hover */}
-                <h4 className="relative inline-block font-sans text-lg font-semibold mb-1 text-dark-chocolate group-hover:text-action-cta transition-colors duration-300">
+                <h3 className="relative inline-block font-sans text-lg font-semibold mb-1 text-dark-chocolate group-hover:text-action-cta transition-colors duration-300">
                   {cat.name}
                   <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-action-cta rounded-full transition-all duration-300 group-hover:w-full" />
-                </h4>
+                </h3>
 
                 {/* Tagline — muted, turns red on hover */}
-                <p className="font-sans text-xs tracking-widest uppercase text-dark-chocolate/50 group-hover:text-action-cta transition-colors duration-300">
+                <p className="font-sans text-xs tracking-widest uppercase text-dark-chocolate/70 group-hover:text-action-cta transition-colors duration-300">
                   {cat.tagline}
                 </p>
               </Link>
