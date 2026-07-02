@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rikolasWRK.github.io/lanietadeportella/sitemap.xml
