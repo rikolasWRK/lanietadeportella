@@ -29,7 +29,7 @@ export default function PageLayout({
     <div className="py-24 bg-primary-bg text-dark-chocolate min-h-[60vh]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center space-y-4 mb-14">
-          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-cta uppercase block">
+          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-strong uppercase block">
             {eyebrow}
           </span>
           <h1 className="font-display text-4xl sm:text-5xl tracking-tight text-dark-chocolate">

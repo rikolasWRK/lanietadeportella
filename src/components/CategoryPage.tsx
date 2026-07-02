@@ -57,7 +57,7 @@ export default function CategoryPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="text-center max-w-2xl mx-auto mb-14 space-y-4">
-          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-cta uppercase block">
+          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-strong uppercase block">
             {meta ? "Nuestra Carta" : "Categoría"}
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-dark-chocolate">

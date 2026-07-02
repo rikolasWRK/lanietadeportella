@@ -40,7 +40,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-sm font-bold tracking-[0.25em] text-vibrant-coral mb-4 block"
+            className="font-sans text-sm font-bold tracking-[0.25em] text-action-strong mb-4 block"
           >
             ARTESANÍA EN CADA BOCADO
           </motion.span>

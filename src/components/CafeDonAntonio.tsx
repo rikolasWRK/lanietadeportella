@@ -132,10 +132,10 @@ export default function CafeDonAntonio() {
               className="space-y-3 bg-primary-bg/5 p-5 border border-primary-bg/10 rounded-xl"
               id="cafe-profile-metrics"
             >
-              <h4 className="text-xs font-bold uppercase tracking-widest text-primary-bg/70 flex items-center gap-1.5">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-primary-bg/70 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-action-cta" />
                 <span>Perfil Organoléptico en Taza</span>
-              </h4>
+              </h3>
               <div className="space-y-2.5 pt-2">
                 {tastingNotes.map((note) => (
                   <div key={note.label} className="space-y-1">

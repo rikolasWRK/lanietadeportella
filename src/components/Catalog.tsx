@@ -39,7 +39,7 @@ export default function Catalog() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-cta uppercase block">
+          <span className="font-sans text-xs font-bold tracking-[0.2em] text-action-strong uppercase block">
             A mal tiempo, un buen postre
           </span>
           <h2 className="font-display text-4xl sm:text-5xl tracking-tight">

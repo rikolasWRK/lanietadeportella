@@ -75,7 +75,7 @@ export default function CustomCakeBuilder() {
             >
               {/* Left Column: Details */}
               <div className="md:col-span-7 space-y-6">
-                <span className="font-sans text-xs font-bold tracking-[0.15em] text-action-cta uppercase block">
+                <span className="font-sans text-xs font-bold tracking-[0.15em] text-action-strong uppercase block">
                   Tortas de Alta Costura
                 </span>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
@@ -95,9 +95,9 @@ export default function CustomCakeBuilder() {
                       <Sparkles className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-base leading-tight">
+                      <h3 className="font-display text-base leading-tight">
                         Diseño a Medida
-                      </h4>
+                      </h3>
                       <p className="text-xs font-light text-dark-chocolate/60 mt-1 leading-normal">
                         Elige cada detalle, desde el bizcocho hasta los adornos
                         y texturas finales.
@@ -110,9 +110,9 @@ export default function CustomCakeBuilder() {
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-base leading-tight">
+                      <h3 className="font-display text-base leading-tight">
                         Reserva con Tiempo
-                      </h4>
+                      </h3>
                       <p className="text-xs font-light text-dark-chocolate/60 mt-1 leading-normal">
                         Agenda una sesión de degustación y diseño personalizada
                         para bodas y galas.
@@ -428,7 +428,7 @@ export default function CustomCakeBuilder() {
                             />
                           </div>
                           <div className="bg-cream-surface/20 border border-dark-chocolate/5 p-4 rounded-xl text-xs font-light leading-relaxed text-dark-chocolate/75">
-                            <span className="font-bold text-action-cta uppercase tracking-wider mr-1 block sm:inline">
+                            <span className="font-bold text-action-strong uppercase tracking-wider mr-1 block sm:inline">
                               Nota:
                             </span>
                             Los toppers se fabrican en papel acrílico cortado

@@ -57,7 +57,7 @@ export default function SocialFeed() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
         {/* Section Headers */}
         <div className="space-y-3">
-          <span className="font-sans text-xs font-bold tracking-[0.25em] text-action-cta uppercase block">
+          <span className="font-sans text-xs font-bold tracking-[0.25em] text-action-strong uppercase block">
             Sigue nuestro día a día
           </span>
           <h3 className="font-display text-3xl sm:text-4xl tracking-tight">

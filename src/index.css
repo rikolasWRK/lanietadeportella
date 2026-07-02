@@ -9,6 +9,8 @@
   --color-secondary-bg: #e9e3c8;
   --color-muted-accent: #e7c4c1;
   --color-action-cta: #eb4329;
+  /* Darker coral for small text on light surfaces (passes WCAG AA 4.5:1). */
+  --color-action-strong: #c0330f;
   --color-text-main: #281808;
   --color-on-surface-variant: #5b4636;
 
