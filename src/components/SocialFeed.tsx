@@ -4,59 +4,57 @@
  */
 
 import { motion } from "motion/react";
-import { Instagram, Heart, MessageCircle } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { INSTAGRAM_USERNAME } from "../constants";
+import { asset } from "../lib/asset";
 
 export default function SocialFeed() {
+  // Real Instagram posts — each thumbnail links to the actual publication.
   const feedItems = [
     {
       id: 1,
-      image: "cupcake-gigante.jpeg",
-      likes: "342",
-      comments: "14",
-      alt: "Un bocado de torta húmeda de chocolate"
+      image: "ig-post-1.jpeg",
+      url: "https://www.instagram.com/p/DYDxhKdDvW9/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 2,
-      image: "torta-mama.jpeg",
-      likes: "856",
-      comments: "25",
-      alt: "Manos amasando recetas familiares con harina"
+      image: "ig-post-2.jpeg",
+      url: "https://www.instagram.com/p/CrjmrA_Lg8v/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 3,
-      image: "cupcakes-caja6.jpeg",
-      likes: "421",
-      comments: "8",
-      alt: "Croissants recién horneados y dorados"
+      image: "ig-post-3.jpeg",
+      url: "https://www.instagram.com/p/ClgfPmyu3yb/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 4,
-      image: "cafe-taza.jpeg",
-      likes: "289",
-      comments: "32",
-      alt: "Arte latte de capuccino de especialidad"
+      image: "ig-post-4.jpeg",
+      url: "https://www.instagram.com/p/Crvpvmmuiid/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 5,
-      image: "caja-regalo.jpeg",
-      likes: "567",
-      comments: "19",
-      alt: "Interiores minimalistas y elegantes de nuestra pastelería"
+      image: "ig-post-5.jpeg",
+      url: "https://www.instagram.com/p/CvsBb1BJuMU/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 6,
-      image: "cupcake-individual.jpeg",
-      likes: "398",
-      comments: "22",
-      alt: "Caja de dulces premium listos para delivery"
-    }
+      image: "ig-post-6.jpeg",
+      url: "https://www.instagram.com/p/Cs3lyFVtLf3/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
+    },
   ];
 
   return (
-    <section className="py-24 bg-primary-bg text-dark-chocolate overflow-hidden" id="social-feed-section">
+    <section
+      className="py-24 bg-primary-bg text-dark-chocolate overflow-hidden"
+      id="social-feed-section"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-        
         {/* Section Headers */}
         <div className="space-y-3">
           <span className="font-sans text-xs font-bold tracking-[0.25em] text-action-cta uppercase block">
@@ -77,13 +75,17 @@ export default function SocialFeed() {
         </div>
 
         {/* 6 Column Responsive Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="social-grid">
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          id="social-grid"
+        >
           {feedItems.map((item) => (
             <motion.a
               key={item.id}
-              href={`https://instagram.com/${INSTAGRAM_USERNAME}`}
+              href={item.url}
               target="_blank"
               rel="noreferrer"
+              aria-label="Ver publicación en Instagram"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -92,27 +94,23 @@ export default function SocialFeed() {
               id={`social-card-${item.id}`}
             >
               <img
-                src={item.image}
+                src={asset(item.image)}
                 alt={item.alt}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 referrerPolicy="no-referrer"
               />
 
-              {/* Hover Overlay with Likes/Comments icons */}
-              <div className="absolute inset-0 bg-dark-chocolate/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 text-white">
-                <div className="flex items-center gap-1.5 text-xs font-medium font-sans">
-                  <Heart className="w-4 h-4 fill-current text-action-cta" />
-                  <span>{item.likes}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-medium font-sans">
-                  <MessageCircle className="w-4 h-4 fill-current text-primary-bg" />
-                  <span>{item.comments}</span>
-                </div>
+              {/* Hover overlay — links to the real post */}
+              <div className="absolute inset-0 bg-dark-chocolate/55 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-1.5 text-primary-bg">
+                <Instagram className="w-6 h-6" />
+                <span className="text-[10px] font-sans font-semibold uppercase tracking-wider">
+                  Ver post
+                </span>
               </div>
             </motion.a>
           ))}
         </div>
-
       </div>
     </section>
   );
