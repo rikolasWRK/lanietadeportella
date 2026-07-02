@@ -4,56 +4,60 @@
  */
 
 import { motion } from "motion/react";
-import { Heart } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { INSTAGRAM_USERNAME } from "../constants";
+import { asset } from "../lib/asset";
 
 export default function SocialFeed() {
+  // Real Instagram posts — each thumbnail links to the actual publication.
   const feedItems = [
     {
       id: 1,
       image: "ig-post-1.jpeg",
-      url: "https://www.instagram.com/p/DYDxhKdDvW9/?igsh=d2luNHAzNm94Z3Az",
-      alt: "Post de Instagram - La Nieta de Portella"
+      url: "https://www.instagram.com/p/DYDxhKdDvW9/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 2,
       image: "ig-post-2.jpeg",
-      url: "https://www.instagram.com/p/CrjmrA_Lg8v/?igsh=d2E4cmV0ZHpkNmly",
-      alt: "Post de Instagram - La Nieta de Portella"
+      url: "https://www.instagram.com/p/CrjmrA_Lg8v/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 3,
       image: "ig-post-3.jpeg",
-      url: "https://www.instagram.com/p/ClgfPmyu3yb/?igsh=MTllcmtsaDJwb3cxaQ==",
-      alt: "Post de Instagram - La Nieta de Portella"
+      url: "https://www.instagram.com/p/ClgfPmyu3yb/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 4,
       image: "ig-post-4.jpeg",
-      url: "https://www.instagram.com/p/Crvpvmmuiid/?igsh=czMyYjFwb3Zia2U1",
-      alt: "Post de Instagram - La Nieta de Portella"
+      url: "https://www.instagram.com/p/Crvpvmmuiid/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 5,
       image: "ig-post-5.jpeg",
-      url: "https://www.instagram.com/p/CvsBb1BJuMU/?igsh=MTU5MWswMTZ3bnRobg==",
-      alt: "Post de Instagram - La Nieta de Portella"
+      url: "https://www.instagram.com/p/CvsBb1BJuMU/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
     },
     {
       id: 6,
       image: "ig-post-6.jpeg",
-      url: "https://www.instagram.com/p/Cs3lyFVtLf3/?igsh=OGptMjZhaDRncXpp",
-      alt: "Post de Instagram - La Nieta de Portella"
-    }
+      url: "https://www.instagram.com/p/Cs3lyFVtLf3/",
+      alt: "Publicación de La Nieta de Portella en Instagram",
+    },
   ];
 
   return (
-    <section className="py-24 bg-primary-bg text-dark-chocolate overflow-hidden" id="social-feed-section">
+    <section
+      className="py-24 bg-primary-bg text-dark-chocolate overflow-hidden"
+      id="social-feed-section"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-        
         {/* Section Headers */}
         <div className="space-y-3">
-          <span className="font-sans text-xs font-bold tracking-[0.25em] text-action-cta uppercase block">
+          <span className="font-sans text-xs font-bold tracking-[0.25em] text-action-strong uppercase block">
             Sigue nuestro día a día
           </span>
           <h3 className="font-display text-3xl sm:text-4xl tracking-tight">
@@ -71,13 +75,17 @@ export default function SocialFeed() {
         </div>
 
         {/* 6 Column Responsive Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="social-grid">
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          id="social-grid"
+        >
           {feedItems.map((item) => (
             <motion.a
               key={item.id}
               href={item.url}
               target="_blank"
               rel="noreferrer"
+              aria-label="Ver publicación en Instagram"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -86,19 +94,23 @@ export default function SocialFeed() {
               id={`social-card-${item.id}`}
             >
               <img
-                src={item.image}
+                src={asset(item.image)}
                 alt={item.alt}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                referrerPolicy="no-referrer"
               />
 
-              {/* Hover Overlay — solo corazón rojo */}
-              <div className="absolute inset-0 bg-dark-chocolate/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <Heart className="w-8 h-8 fill-current text-action-cta drop-shadow-lg" />
+              {/* Hover overlay — links to the real post */}
+              <div className="absolute inset-0 bg-dark-chocolate/55 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-1.5 text-primary-bg">
+                <Instagram className="w-6 h-6" />
+                <span className="text-[10px] font-sans font-semibold uppercase tracking-wider">
+                  Ver post
+                </span>
               </div>
             </motion.a>
           ))}
         </div>
-
       </div>
     </section>
   );

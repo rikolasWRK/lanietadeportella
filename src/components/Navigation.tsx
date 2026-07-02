@@ -3,29 +3,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Search, Menu, X } from "lucide-react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useState, useEffect, type MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { Menu, X, ShoppingBag } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import { useCart } from "../context/CartContext";
+import { useSectionNav } from "../lib/useSectionNav";
 
 export default function Navigation() {
+  const { totalItems, openCart } = useCart();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const scrollToSection = (id: string) => {
-    const doScroll = () => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    };
-    if (location.pathname === "/") {
-      doScroll();
-    } else {
-      navigate("/");
-      setTimeout(doScroll, 300);
-    }
-  };
-  const [isScrolled, setIsScrolled] = useState(false);
+  const goToSection = useSectionNav();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Section links are handled programmatically (see useSectionNav) because
+  // in-page hash anchors collide with HashRouter routing.
+  const onSection = (id: string) => (e: MouseEvent) => {
+    e.preventDefault();
+    goToSection(id);
+    setIsMobileMenuOpen(false);
+  };
+
+  const goHome = (e: MouseEvent) => {
+    e.preventDefault();
+    navigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const onRoute = (to: string) => (e: MouseEvent) => {
+    e.preventDefault();
+    navigate(to);
+    setIsMobileMenuOpen(false);
+  };
 
   // Motion value tracking scroll position (0 = top, 1 = scrolled)
   const scrollProgress = useMotionValue(0);
@@ -38,28 +53,28 @@ export default function Navigation() {
   });
 
   // Derive animated CSS values from the spring
-  const navPaddingY   = useTransform(smoothProgress, [0, 1], [28, 16]); // px: 7 → 4
-  const bgOpacity     = useTransform(smoothProgress, [0, 1], [0, 0.92]);
+  const navPaddingY = useTransform(smoothProgress, [0, 1], [28, 16]); // px: 7 → 4
+  const bgOpacity = useTransform(smoothProgress, [0, 1], [0, 0.92]);
   const borderOpacity = useTransform(smoothProgress, [0, 1], [0, 0.06]);
-  const shadowBlur    = useTransform(smoothProgress, [0, 1], [0, 12]);
-  const logoScale     = useTransform(smoothProgress, [0, 1], [1, 0.88]);
+  const shadowBlur = useTransform(smoothProgress, [0, 1], [0, 12]);
+  const logoScale = useTransform(smoothProgress, [0, 1], [1, 0.88]);
 
   useEffect(() => {
     const onScroll = () => {
-      const scrolled = window.scrollY > 50;
-      setIsScrolled(scrolled);
-      scrollProgress.set(scrolled ? 1 : 0);
+      scrollProgress.set(window.scrollY > 50 ? 1 : 0);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollProgress]);
 
-  const navLinks = [
-    { label: "Nosotros",             href: "#/historia" },
-    { label: "La Carta",             href: "#", scrollId: "carta" },
-    { label: "Tortas Personalizadas",href: "#personalizar" },
-    { label: "Café Don Antonio",     href: "#cafe-antonio" },
-    { label: "Contacto",             href: "#/contacto" }
+  // `section` items scroll to a home section; `to` items navigate to a route.
+  const navLinks: { label: string; section?: string; to?: string }[] = [
+    { label: "Nosotros", section: "nosotros" },
+    { label: "Nuestra Historia", to: "/historia" },
+    { label: "La Carta", section: "carta" },
+    { label: "Tortas Personalizadas", section: "personalizar" },
+    { label: "Café Don Antonio", section: "cafe-antonio" },
+    { label: "Contacto", to: "/contacto" },
   ];
 
   return (
@@ -90,7 +105,7 @@ export default function Navigation() {
           style={{
             boxShadow: useTransform(
               shadowBlur,
-              (v) => `0 ${v * 0.5}px ${v}px rgba(0,0,0,0.06)`
+              (v) => `0 ${v * 0.5}px ${v}px rgba(0,0,0,0.06)`,
             ),
           }}
         />
@@ -105,23 +120,32 @@ export default function Navigation() {
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
           <div className="flex items-center justify-between w-full relative">
-
             {/* Left Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center gap-4 lg:gap-8 z-10">
               <a
-                href="#/historia"
-                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+                href="#nosotros"
+                onClick={onSection("nosotros")}
+                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group cursor-pointer"
               >
                 Nosotros
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
               </a>
-              <button
-                onClick={() => scrollToSection("carta")}
-                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+              <a
+                href="/historia"
+                onClick={onRoute("/historia")}
+                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group cursor-pointer"
+              >
+                Historia
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
+              </a>
+              <a
+                href="#carta"
+                onClick={onSection("carta")}
+                className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group cursor-pointer"
               >
                 Carta/Tienda
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
-              </button>
+              </a>
             </div>
 
             {/* Logo — scales down slightly on scroll */}
@@ -129,43 +153,58 @@ export default function Navigation() {
               className="absolute left-1/2 -translate-x-1/2 text-center select-none z-10 origin-center"
               style={{ scale: logoScale }}
             >
-              <a href="#" className="flex flex-col items-center justify-center">
+              <a
+                href="/"
+                onClick={goHome}
+                className="flex flex-col items-center justify-center cursor-pointer"
+              >
                 <span className="font-display text-2xl sm:text-3xl lg:text-4xl tracking-normal text-vibrant-coral leading-none">
                   La Nieta de Portella
                 </span>
-                <span className="font-sans text-[11px] tracking-[0.35em] text-dark-chocolate/60 uppercase mt-1.5 leading-none">
+                <span className="font-sans text-[11px] tracking-[0.35em] text-dark-chocolate/75 uppercase mt-1.5 leading-none">
                   HAPPY BAKES
                 </span>
               </a>
             </motion.div>
 
             {/* Right side controls */}
-            <div className="flex items-center space-x-3 sm:space-x-4 z-10 ml-auto" id="nav-controls">
+            <div
+              className="flex items-center space-x-3 sm:space-x-4 z-10 ml-auto"
+              id="nav-controls"
+            >
               {/* Right Navigation Links (Desktop) */}
               <div className="hidden md:flex items-center gap-4 lg:gap-8 mr-4 lg:mr-8">
                 <a
                   href="#cafe-antonio"
-                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+                  onClick={onSection("cafe-antonio")}
+                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group cursor-pointer"
                 >
                   Café Don Antonio
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
                 </a>
                 <a
-                  href="#/contacto"
-                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
+                  href="/contacto"
+                  onClick={onRoute("/contacto")}
+                  className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group cursor-pointer"
                 >
                   Contacto
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
                 </a>
               </div>
 
-              {/* Search utility */}
+              {/* Cart button with item-count badge */}
               <button
-                className="p-2 text-dark-chocolate/80 hover:text-action-cta hover:bg-dark-chocolate/5 rounded-full transition-all duration-300 hidden sm:block"
-                aria-label="Buscar productos"
-                id="search-btn"
+                onClick={openCart}
+                className="relative p-2 text-dark-chocolate hover:text-action-cta hover:bg-dark-chocolate/5 rounded-full transition-all cursor-pointer"
+                aria-label={`Abrir carrito, ${totalItems} producto(s)`}
+                id="cart-toggle-btn"
               >
-                <Search className="w-5 h-5" />
+                <ShoppingBag className="w-5 h-5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-action-cta text-primary-bg text-[10px] font-bold rounded-full tabular-nums">
+                    {totalItems}
+                  </span>
+                )}
               </button>
 
               {/* Mobile menu toggle */}
@@ -175,10 +214,13 @@ export default function Navigation() {
                 aria-label="Menu principal"
                 id="mobile-menu-toggle-btn"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
               </button>
             </div>
-
           </div>
         </div>
 
@@ -197,29 +239,17 @@ export default function Navigation() {
                 {navLinks.map((link) => (
                   <a
                     key={link.label}
-                    href={link.href}
-                    onClick={(e) => {
-                      if ("scrollId" in link && link.scrollId) {
-                        e.preventDefault();
-                        setIsMobileMenuOpen(false);
-                        scrollToSection(link.scrollId as string);
-                      } else {
-                        setIsMobileMenuOpen(false);
-                      }
-                    }}
-                    className="block font-sans text-sm font-medium tracking-wider text-dark-chocolate/90 uppercase hover:text-action-cta hover:bg-dark-chocolate/5 px-3 py-2.5 rounded-lg transition-all"
+                    href={link.to ?? `#${link.section}`}
+                    onClick={
+                      link.to
+                        ? onRoute(link.to)
+                        : onSection(link.section as string)
+                    }
+                    className="block font-sans text-sm font-medium tracking-wider text-dark-chocolate/90 uppercase hover:text-action-cta hover:bg-dark-chocolate/5 px-3 py-2.5 rounded-lg transition-all cursor-pointer"
                   >
                     {link.label}
                   </a>
                 ))}
-                <div className="pt-3 border-t border-dark-chocolate/5 flex items-center justify-around">
-                  <button
-                    className="flex items-center gap-2 font-sans text-xs text-dark-chocolate/80 hover:text-action-cta p-2"
-                    id="mobile-search-btn"
-                  >
-                    <Search className="w-4 h-4" /> Buscar
-                  </button>
-                </div>
               </div>
             </motion.div>
           )}

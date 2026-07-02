@@ -1,12 +1,20 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { motion } from "motion/react";
-import { Coffee, Award, Sparkles, Flame, Droplets } from "lucide-react";
+import { Coffee, Award, Sparkles, Flame } from "lucide-react";
+import { asset } from "../lib/asset";
+import { useSectionNav } from "../lib/useSectionNav";
 
 export default function CafeDonAntonio() {
+  const goToSection = useSectionNav();
   const tastingNotes = [
     { label: "Cuerpo / Body", value: "85%", width: "w-[85%]" },
     { label: "Acidez / Acidity", value: "70%", width: "w-[70%]" },
     { label: "Dulzura / Sweetness", value: "90%", width: "w-[90%]" },
-    { label: "Aroma / Aroma", value: "95%", width: "w-[95%]" }
+    { label: "Aroma / Aroma", value: "95%", width: "w-[95%]" },
   ];
 
   return (
@@ -20,7 +28,6 @@ export default function CafeDonAntonio() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
           {/* Left Column: Official Logo inside top-arch frame (High Contrast Match) */}
           <div className="md:col-span-5 flex justify-center items-center">
             <motion.div
@@ -34,7 +41,7 @@ export default function CafeDonAntonio() {
               <div className="arch-frame w-full h-full relative bg-black flex items-center justify-center p-6">
                 {/* Official Cafe Don Antonio White/Black logo */}
                 <img
-                  src="cafe-taza.jpeg"
+                  src={asset("cafe-taza.jpeg")}
                   alt="Logo Oficial Café Don Antonio de Especialidad"
                   className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-103"
                   referrerPolicy="no-referrer"
@@ -69,7 +76,11 @@ export default function CafeDonAntonio() {
               className="font-sans text-sm sm:text-base font-light leading-relaxed text-primary-bg/80"
               id="cafe-intro-text"
             >
-              Cosechado artesanalmente a más de 1,500 msnm en las laderas nubosas de la selva alta de San Martín. Nuestro café arábica orgánico se lava de forma rústica y se tuesta semanalmente en pequeños lotes, revelando notas ricas a chocolate de taza, caramelo fundido y un final limpio con acidez cítrica sutil.
+              Cosechado artesanalmente a más de 1,500 msnm en las laderas
+              nubosas de la selva alta de San Martín. Nuestro café arábica
+              orgánico se lava de forma rústica y se tuesta semanalmente en
+              pequeños lotes, revelando notas ricas a chocolate de taza,
+              caramelo fundido y un final limpio con acidez cítrica sutil.
             </motion.p>
 
             {/* Coffee specifications cards */}
@@ -84,19 +95,31 @@ export default function CafeDonAntonio() {
               <div className="p-4 bg-primary-bg/5 border border-primary-bg/10 rounded-xl space-y-1">
                 <div className="flex items-center gap-2 text-action-cta">
                   <Award className="w-4 h-4" />
-                  <span className="text-xs font-semibold uppercase tracking-wider">Puntaje de Taza</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider">
+                    Puntaje de Taza
+                  </span>
                 </div>
-                <p className="font-display text-2xl text-primary-bg">84.5+ SCA</p>
-                <p className="text-[10px] font-light text-primary-bg/50">Categoría Especialidad Excelente</p>
+                <p className="font-display text-2xl text-primary-bg">
+                  84.5+ SCA
+                </p>
+                <p className="text-[10px] font-light text-primary-bg/50">
+                  Categoría Especialidad Excelente
+                </p>
               </div>
 
               <div className="p-4 bg-primary-bg/5 border border-primary-bg/10 rounded-xl space-y-1">
                 <div className="flex items-center gap-2 text-action-cta">
                   <Flame className="w-4 h-4" />
-                  <span className="text-xs font-semibold uppercase tracking-wider">Perfil de Tueste</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider">
+                    Perfil de Tueste
+                  </span>
                 </div>
-                <p className="font-display text-2xl text-primary-bg">Tueste Medio</p>
-                <p className="text-[10px] font-light text-primary-bg/50">Balance perfecto entre aroma y cuerpo</p>
+                <p className="font-display text-2xl text-primary-bg">
+                  Tueste Medio
+                </p>
+                <p className="text-[10px] font-light text-primary-bg/50">
+                  Balance perfecto entre aroma y cuerpo
+                </p>
               </div>
             </motion.div>
 
@@ -109,20 +132,24 @@ export default function CafeDonAntonio() {
               className="space-y-3 bg-primary-bg/5 p-5 border border-primary-bg/10 rounded-xl"
               id="cafe-profile-metrics"
             >
-              <h4 className="text-xs font-bold uppercase tracking-widest text-primary-bg/70 flex items-center gap-1.5">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-primary-bg/70 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-action-cta" />
                 <span>Perfil Organoléptico en Taza</span>
-              </h4>
+              </h3>
               <div className="space-y-2.5 pt-2">
                 {tastingNotes.map((note) => (
                   <div key={note.label} className="space-y-1">
                     <div className="flex justify-between text-xs font-light">
                       <span className="text-primary-bg/80">{note.label}</span>
-                      <span className="font-bold text-action-cta">{note.value}</span>
+                      <span className="font-bold text-action-cta">
+                        {note.value}
+                      </span>
                     </div>
                     {/* Bar chart container */}
                     <div className="h-1.5 bg-primary-bg/10 rounded-full overflow-hidden">
-                      <div className={`h-full bg-action-cta ${note.width} rounded-full`} />
+                      <div
+                        className={`h-full bg-action-cta ${note.width} rounded-full`}
+                      />
                     </div>
                   </div>
                 ))}
@@ -133,6 +160,10 @@ export default function CafeDonAntonio() {
             <div className="pt-2">
               <a
                 href="#carta"
+                onClick={(e) => {
+                  e.preventDefault();
+                  goToSection("carta");
+                }}
                 className="px-6 py-3 bg-action-cta text-primary-bg font-sans rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-opacity-95 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-md"
                 id="cafe-catalog-trigger"
               >
@@ -140,7 +171,6 @@ export default function CafeDonAntonio() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
     </section>

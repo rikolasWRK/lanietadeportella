@@ -5,9 +5,24 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Sparkles, Calendar, Check, Send, ChevronRight, ChevronLeft, RotateCcw, Cake, MessageCircle } from "lucide-react";
-import { CustomCake } from "../types";
-import { CAKE_SIZES, CAKE_BISCUITS, CAKE_FILLINGS, CAKE_THEMES, CONTACT_WHATSAPP_NUMBER } from "../constants";
+import {
+  Sparkles,
+  Calendar,
+  Check,
+  ChevronRight,
+  ChevronLeft,
+  RotateCcw,
+  Cake,
+  MessageCircle,
+} from "lucide-react";
+import {
+  CAKE_SIZES,
+  CAKE_BISCUITS,
+  CAKE_FILLINGS,
+  CAKE_THEMES,
+} from "../constants";
+import { asset } from "../lib/asset";
+import { openWhatsApp, customCakeMessage } from "../lib/whatsapp";
 
 export default function CustomCakeBuilder() {
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
@@ -30,23 +45,23 @@ export default function CustomCakeBuilder() {
   };
 
   const handleSendCustomOrder = () => {
-    const text = `*¡Hola La Nieta de Portella! Deseo cotizar una Torta Personalizada a medida:*\n\n` +
-      `🎂 *Detalle de la Torta:* \n` +
-      `- *Tamaño:* ${selectedSize.name} (${selectedSize.portions}) - S/. ${selectedSize.price}\n` +
-      `- *Bizcocho:* ${selectedBiscuit.name}\n` +
-      `- *Relleno:* ${selectedFilling.name}\n` +
-      `- *Decoración & Estilo:* ${selectedTheme.name}\n` +
-      `✍️ *Texto de Topper / Dedicatoria:* "${topperText || "Ninguna"}"\n\n` +
-      `*Monto estimado:* S/. ${selectedSize.price.toFixed(2)}\n\n` +
-      `¿Tienen disponibilidad en agenda para coordinar fecha y hora? ¡Muchas gracias!`;
-
-    const url = `https://api.whatsapp.com/send?phone=${CONTACT_WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
+    openWhatsApp(
+      customCakeMessage({
+        size: selectedSize,
+        biscuit: selectedBiscuit,
+        filling: selectedFilling,
+        theme: selectedTheme,
+        topperText,
+      }),
+    );
   };
+
   return (
-    <section id="personalizar" className="py-24 bg-cream-surface/30 text-dark-chocolate">
+    <section
+      id="personalizar"
+      className="py-24 bg-cream-surface/30 text-dark-chocolate"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Intro Split Layout card */}
         <AnimatePresence mode="wait">
           {!isBuilderOpen ? (
@@ -60,14 +75,18 @@ export default function CustomCakeBuilder() {
             >
               {/* Left Column: Details */}
               <div className="md:col-span-7 space-y-6">
-                <span className="font-sans text-xs font-bold tracking-[0.15em] text-action-cta uppercase block">
+                <span className="font-sans text-xs font-bold tracking-[0.15em] text-action-strong uppercase block">
                   Tortas de Alta Costura
                 </span>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
-                  Sueña en grande, <br />nosotros lo horneamos.
+                  Sueña en grande, <br />
+                  nosotros lo horneamos.
                 </h2>
                 <p className="font-sans text-sm sm:text-base font-light text-dark-chocolate/80 leading-relaxed">
-                  Desde bodas íntimas hasta celebraciones monumentales. Trabajamos contigo de la mano para diseñar la pieza central perfecta para tu evento, garantizando un sabor extraordinario y una estética impecable.
+                  Desde bodas íntimas hasta celebraciones monumentales.
+                  Trabajamos contigo de la mano para diseñar la pieza central
+                  perfecta para tu evento, garantizando un sabor extraordinario
+                  y una estética impecable.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
@@ -76,9 +95,12 @@ export default function CustomCakeBuilder() {
                       <Sparkles className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-base leading-tight">Diseño a Medida</h4>
+                      <h3 className="font-display text-base leading-tight">
+                        Diseño a Medida
+                      </h3>
                       <p className="text-xs font-light text-dark-chocolate/60 mt-1 leading-normal">
-                        Elige cada detalle, desde el bizcocho hasta los adornos y texturas finales.
+                        Elige cada detalle, desde el bizcocho hasta los adornos
+                        y texturas finales.
                       </p>
                     </div>
                   </div>
@@ -88,9 +110,12 @@ export default function CustomCakeBuilder() {
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-base leading-tight">Reserva con Tiempo</h4>
+                      <h3 className="font-display text-base leading-tight">
+                        Reserva con Tiempo
+                      </h3>
                       <p className="text-xs font-light text-dark-chocolate/60 mt-1 leading-normal">
-                        Agenda una sesión de degustación y diseño personalizada para bodas y galas.
+                        Agenda una sesión de degustación y diseño personalizada
+                        para bodas y galas.
                       </p>
                     </div>
                   </div>
@@ -98,11 +123,7 @@ export default function CustomCakeBuilder() {
 
                 <div className="pt-4">
                   <button
-                    onClick={() => {
-                      const text = `*¡Hola La Nieta de Portella! Me gustaría cotizar y personalizar una torta a medida para una ocasión especial.* 🎂✨\n\n¿Podrían brindarme más información sobre las opciones de sabores, tamaños y disponibilidad de agenda? ¡Muchas gracias!`;
-                      const url = `https://api.whatsapp.com/send?phone=${CONTACT_WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`;
-                      window.open(url, "_blank");
-                    }}
+                    onClick={() => setIsBuilderOpen(true)}
                     className="px-8 py-4 bg-dark-chocolate text-primary-bg font-sans rounded-xl font-medium tracking-wide flex items-center gap-2.5 transition-all hover:bg-opacity-95 hover:translate-y-[-2px] duration-300 shadow-md group cursor-pointer"
                     id="personalize-cake-trigger"
                   >
@@ -115,15 +136,13 @@ export default function CustomCakeBuilder() {
 
               {/* Right Column: Baker Decorating Golden Cake */}
               <div className="md:col-span-5 flex justify-center">
-                <div className="relative w-full max-w-sm aspect-[4/5] bg-secondary-bg p-3 border border-dark-chocolate/10 rounded-t-full rounded-b-xl overflow-hidden shadow-lg">
-                  <div className="w-full h-full rounded-t-full rounded-b-lg overflow-hidden">
-                    <video
-                      src="webDSING1.0.mp4"
+                <div className="relative w-full max-w-sm aspect-[4/5] bg-secondary-bg/25 p-2 border border-dark-chocolate/10 rounded-t-full rounded-b-xl overflow-hidden shadow-lg">
+                  <div className="arch-frame w-full h-full">
+                    <img
+                      src={asset("torta-mama.jpeg")}
+                      alt="Torta personalizada de ejemplo"
                       className="w-full h-full object-cover"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
@@ -148,7 +167,8 @@ export default function CustomCakeBuilder() {
                     <span>Diseñador Virtual de Tortas</span>
                   </h3>
                   <p className="text-xs font-light text-dark-chocolate/60">
-                    Crea tu pastel soñado en 5 simples pasos y recíbelo horneado a la perfección.
+                    Crea tu pastel soñado en 5 simples pasos y recíbelo horneado
+                    a la perfección.
                   </p>
                 </div>
                 <button
@@ -180,8 +200,8 @@ export default function CustomCakeBuilder() {
                         isActive
                           ? "bg-action-cta text-primary-bg ring-4 ring-action-cta/20"
                           : isCompleted
-                          ? "bg-dark-chocolate text-primary-bg"
-                          : "bg-secondary-bg text-dark-chocolate/40"
+                            ? "bg-dark-chocolate text-primary-bg"
+                            : "bg-secondary-bg text-dark-chocolate/40"
                       }`}
                       id={`stepper-node-${s}`}
                     >
@@ -193,7 +213,6 @@ export default function CustomCakeBuilder() {
 
               {/* Builder Layout Split: Left choices / Right real-time preview */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
                 {/* Left Panel: Options selection (7 cols) */}
                 <div className="lg:col-span-7 min-h-[300px] flex flex-col justify-between">
                   <div>
@@ -205,9 +224,12 @@ export default function CustomCakeBuilder() {
                         className="space-y-4"
                         id="wizard-step-1"
                       >
-                        <h4 className="font-display text-xl">Paso 1: Selecciona el Tamaño</h4>
+                        <h4 className="font-display text-xl">
+                          Paso 1: Selecciona el Tamaño
+                        </h4>
                         <p className="text-xs font-light text-dark-chocolate/70">
-                          Calcula el tamaño ideal en porciones según el número de invitados de tu evento.
+                          Calcula el tamaño ideal en porciones según el número
+                          de invitados de tu evento.
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                           {CAKE_SIZES.map((sz) => (
@@ -222,8 +244,12 @@ export default function CustomCakeBuilder() {
                               id={`option-size-${sz.id}`}
                             >
                               <div>
-                                <h5 className="font-display text-base text-dark-chocolate">{sz.name}</h5>
-                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">{sz.portions}</p>
+                                <h5 className="font-display text-base text-dark-chocolate">
+                                  {sz.name}
+                                </h5>
+                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">
+                                  {sz.portions}
+                                </p>
                               </div>
                               <span className="font-sans font-bold text-sm text-action-cta">
                                 S/. {sz.price}
@@ -242,9 +268,12 @@ export default function CustomCakeBuilder() {
                         className="space-y-4"
                         id="wizard-step-2"
                       >
-                        <h4 className="font-display text-xl">Paso 2: Sabor del Bizcochuelo</h4>
+                        <h4 className="font-display text-xl">
+                          Paso 2: Sabor del Bizcochuelo
+                        </h4>
                         <p className="text-xs font-light text-dark-chocolate/70">
-                          Horneamos bizcochos sumamente húmedos utilizando ingredientes de origen local premium.
+                          Horneamos bizcochos sumamente húmedos utilizando
+                          ingredientes de origen local premium.
                         </p>
                         <div className="grid grid-cols-1 gap-3 pt-2">
                           {CAKE_BISCUITS.map((bc) => (
@@ -259,8 +288,12 @@ export default function CustomCakeBuilder() {
                               id={`option-biscuit-${bc.id}`}
                             >
                               <div className="max-w-md pr-4">
-                                <h5 className="font-display text-base text-dark-chocolate">{bc.name}</h5>
-                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">{bc.description}</p>
+                                <h5 className="font-display text-base text-dark-chocolate">
+                                  {bc.name}
+                                </h5>
+                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">
+                                  {bc.description}
+                                </p>
                               </div>
                               {selectedBiscuit.id === bc.id && (
                                 <div className="w-5 h-5 rounded-full bg-action-cta flex items-center justify-center text-primary-bg">
@@ -281,9 +314,12 @@ export default function CustomCakeBuilder() {
                         className="space-y-4"
                         id="wizard-step-3"
                       >
-                        <h4 className="font-display text-xl">Paso 3: Relleno de Pastelería</h4>
+                        <h4 className="font-display text-xl">
+                          Paso 3: Relleno de Pastelería
+                        </h4>
                         <p className="text-xs font-light text-dark-chocolate/70">
-                          Nuestros rellenos se cocinan artesanalmente por horas para lograr un copete untuoso y denso.
+                          Nuestros rellenos se cocinan artesanalmente por horas
+                          para lograr un copete untuoso y denso.
                         </p>
                         <div className="grid grid-cols-1 gap-3 pt-2">
                           {CAKE_FILLINGS.map((fl) => (
@@ -298,8 +334,12 @@ export default function CustomCakeBuilder() {
                               id={`option-filling-${fl.id}`}
                             >
                               <div className="max-w-md pr-4">
-                                <h5 className="font-display text-base text-dark-chocolate">{fl.name}</h5>
-                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">{fl.description}</p>
+                                <h5 className="font-display text-base text-dark-chocolate">
+                                  {fl.name}
+                                </h5>
+                                <p className="text-xs font-light text-dark-chocolate/60 mt-0.5">
+                                  {fl.description}
+                                </p>
                               </div>
                               {selectedFilling.id === fl.id && (
                                 <div className="w-5 h-5 rounded-full bg-action-cta flex items-center justify-center text-primary-bg">
@@ -320,9 +360,12 @@ export default function CustomCakeBuilder() {
                         className="space-y-4"
                         id="wizard-step-4"
                       >
-                        <h4 className="font-display text-xl">Paso 4: Temática & Glaseado</h4>
+                        <h4 className="font-display text-xl">
+                          Paso 4: Temática & Glaseado
+                        </h4>
                         <p className="text-xs font-light text-dark-chocolate/70">
-                          Define la paleta de colores y la estética superior de la torta.
+                          Define la paleta de colores y la estética superior de
+                          la torta.
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                           {CAKE_THEMES.map((th) => (
@@ -337,7 +380,9 @@ export default function CustomCakeBuilder() {
                               id={`option-theme-${th.id}`}
                             >
                               <div className="flex justify-between items-center w-full">
-                                <h5 className="font-display text-base text-dark-chocolate">{th.name}</h5>
+                                <h5 className="font-display text-base text-dark-chocolate">
+                                  {th.name}
+                                </h5>
                                 <div
                                   className="w-5 h-5 rounded-full border border-dark-chocolate/20"
                                   style={{ backgroundColor: th.color }}
@@ -360,9 +405,12 @@ export default function CustomCakeBuilder() {
                         className="space-y-4"
                         id="wizard-step-5"
                       >
-                        <h4 className="font-display text-xl">Paso 5: Dedicatoria Escrita</h4>
+                        <h4 className="font-display text-xl">
+                          Paso 5: Dedicatoria Escrita
+                        </h4>
                         <p className="text-xs font-light text-dark-chocolate/70">
-                          Escribe el mensaje o dedicatoria que se colocará de adorno en la cima. ¡Mira el render a la derecha!
+                          Escribe el mensaje o dedicatoria que se colocará de
+                          adorno en la cima. ¡Mira el render a la derecha!
                         </p>
                         <div className="space-y-4 pt-2">
                           <div className="space-y-1">
@@ -380,8 +428,12 @@ export default function CustomCakeBuilder() {
                             />
                           </div>
                           <div className="bg-cream-surface/20 border border-dark-chocolate/5 p-4 rounded-xl text-xs font-light leading-relaxed text-dark-chocolate/75">
-                            <span className="font-bold text-action-cta uppercase tracking-wider mr-1 block sm:inline">Nota:</span>
-                            Los toppers se fabrican en papel acrílico cortado con láser o se escriben a pulso artístico con chocolate blanco belga sobre macarons en la cima.
+                            <span className="font-bold text-action-strong uppercase tracking-wider mr-1 block sm:inline">
+                              Nota:
+                            </span>
+                            Los toppers se fabrican en papel acrílico cortado
+                            con láser o se escriben a pulso artístico con
+                            chocolate blanco belga sobre macarons en la cima.
                           </div>
                         </div>
                       </motion.div>
@@ -451,7 +503,10 @@ export default function CustomCakeBuilder() {
                       {selectedTheme.id === "theme-pink-macaron" && (
                         <div className="absolute inset-x-2 inset-y-4 pointer-events-none opacity-80 grid grid-cols-4 gap-2">
                           {Array.from({ length: 8 }).map((_, idx) => (
-                            <div key={idx} className="w-1.5 h-1.5 bg-white rounded-full mx-auto" />
+                            <div
+                              key={idx}
+                              className="w-1.5 h-1.5 bg-white rounded-full mx-auto"
+                            />
                           ))}
                         </div>
                       )}
@@ -481,9 +536,13 @@ export default function CustomCakeBuilder() {
 
                       {/* Interactive Visual indicators (Sponge + Cream) inside the cake */}
                       <div className="absolute bottom-2 left-3 right-3 bg-black/10 rounded-md p-1.5 flex items-center justify-between text-[10px] text-white">
-                        <span className="font-sans leading-none truncate max-w-[65px]">{selectedBiscuit.name}</span>
+                        <span className="font-sans leading-none truncate max-w-[65px]">
+                          {selectedBiscuit.name}
+                        </span>
                         <div className="w-1 h-3 bg-white/25 rounded-full" />
-                        <span className="font-sans leading-none truncate max-w-[65px]">{selectedFilling.name}</span>
+                        <span className="font-sans leading-none truncate max-w-[65px]">
+                          {selectedFilling.name}
+                        </span>
                       </div>
                     </motion.div>
                   </div>
@@ -492,7 +551,9 @@ export default function CustomCakeBuilder() {
                   <div className="border-t border-dark-chocolate/10 pt-4 space-y-1.5">
                     <div className="flex justify-between items-baseline text-xs font-light text-dark-chocolate/60">
                       <span>Tamaño Seleccionado</span>
-                      <span>{selectedSize.name} ({selectedSize.portions})</span>
+                      <span>
+                        {selectedSize.name} ({selectedSize.portions})
+                      </span>
                     </div>
                     <div className="flex justify-between items-baseline text-sm font-medium">
                       <span>Total estimado</span>
@@ -502,7 +563,6 @@ export default function CustomCakeBuilder() {
                     </div>
                   </div>
                 </div>
-
               </div>
 
               {/* Close builder panel */}
@@ -518,7 +578,6 @@ export default function CustomCakeBuilder() {
             </motion.div>
           )}
         </AnimatePresence>
-
       </div>
     </section>
   );

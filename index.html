@@ -3,22 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>La Nieta de Portella • Pastelería Fina &amp; Happy Bakes | Tarapoto, Perú</title>
-    <meta name="description" content="La Nieta de Portella — Pastelería artesanal fina y Happy Bakes en Tarapoto, San Martín. Tortas personalizadas, cupcakes de autor, macarons y Café Don Antonio. Pedidos por WhatsApp." />
+    <title>
+      La Nieta de Portella • Pastelería Fina &amp; Happy Bakes | Tarapoto, Perú
+    </title>
+    <meta
+      name="description"
+      content="La Nieta de Portella — Pastelería artesanal fina y Happy Bakes en Tarapoto, San Martín. Tortas personalizadas, cupcakes de autor, macarons y Café Don Antonio. Pedidos por WhatsApp."
+    />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#EB4329" />
+    <!-- PWA / installable -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="La Nieta" />
+    <link
+      rel="canonical"
+      href="https://rikolasWRK.github.io/lanietadeportella/"
+    />
     <!-- Open Graph para compartir en redes sociales -->
-    <meta property="og:title" content="La Nieta de Portella • Pastelería Fina" />
-    <meta property="og:description" content="Pastelería artesanal en Tarapoto, Perú. Tortas personalizadas, cupcakes, macarons y Café Don Antonio de especialidad." />
+    <meta
+      property="og:title"
+      content="La Nieta de Portella • Pastelería Fina"
+    />
+    <meta
+      property="og:description"
+      content="Pastelería artesanal en Tarapoto, Perú. Tortas personalizadas, cupcakes, macarons y Café Don Antonio de especialidad."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_PE" />
+    <meta
+      property="og:url"
+      content="https://rikolasWRK.github.io/lanietadeportella/"
+    />
+    <meta
+      property="og:image"
+      content="https://rikolasWRK.github.io/lanietadeportella/torta-boda-hero.jpg"
+    />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="La Nieta de Portella • Pastelería Fina"
+    />
+    <meta
+      name="twitter:description"
+      content="Pastelería artesanal en Tarapoto, Perú. Tortas personalizadas, cupcakes, macarons y Café Don Antonio de especialidad."
+    />
+    <meta
+      name="twitter:image"
+      content="https://rikolasWRK.github.io/lanietadeportella/torta-boda-hero.jpg"
+    />
+    <!-- Datos estructurados para Google (schema.org Bakery) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Bakery",
+        "name": "La Nieta de Portella",
+        "description": "Pastelería artesanal fina y Happy Bakes en Tarapoto, San Martín. Tortas personalizadas, cupcakes de autor, macarons y Café Don Antonio de especialidad.",
+        "image": "https://rikolasWRK.github.io/lanietadeportella/torta-boda-hero.jpg",
+        "url": "https://rikolasWRK.github.io/lanietadeportella/",
+        "telephone": "+51984365755",
+        "email": "lanietadeportella@gmail.com",
+        "priceRange": "S/. 12 - S/. 290",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Jr. Lamas 173",
+          "addressLocality": "Tarapoto",
+          "addressRegion": "San Martín",
+          "addressCountry": "PE"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "13:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "16:00",
+            "closes": "20:30"
+          }
+        ],
+        "sameAs": ["https://instagram.com/lanietadeportella"]
+      }
+    </script>
     <!-- Premium Google Fonts: Abril Fatface (Display) & Poppins (Functional/Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

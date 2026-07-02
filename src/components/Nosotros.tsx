@@ -4,8 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { asset } from "../lib/asset";
 
 export default function Nosotros() {
   return (
@@ -15,7 +14,6 @@ export default function Nosotros() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-          
           {/* Left Column: Portrait in Polaroid Style Frame */}
           <div className="md:col-span-5 relative flex justify-center items-center">
             <motion.div
@@ -23,13 +21,13 @@ export default function Nosotros() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-full max-w-sm relative"
+              className="w-full max-w-sm"
               id="nosotros-image-container"
             >
               <div className="bg-white p-4 pb-12 shadow-2xl border border-dark-chocolate/5 rotate-[-2.5deg] hover:rotate-0 transition-transform duration-500 group">
                 <div className="w-full aspect-square overflow-hidden bg-cream-surface/10 border border-dark-chocolate/5">
                   <img
-                    src="old-pic-angelica.png"
+                    src={asset("old-pic-angelica.webp")}
                     alt="Foto clásica de la señora Angélica de joven"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
@@ -60,7 +58,12 @@ export default function Nosotros() {
                 className="font-sans text-base sm:text-lg text-on-surface-variant font-light leading-relaxed"
                 id="nosotros-story-text"
               >
-                Desde 2012, nuestra cocina ha sido el corazón de celebraciones tarapotinas. Lo que comenzó como un homenaje a las recetas de la abuela Angela Portella por parte de su nieta más engreída, hoy es un destino en San Martín para quienes buscan la perfección en la pastelería artesanal, fusionando insumos premium con el abrazo cálido de nuestra tradición familiar.
+                Desde 2012, nuestra cocina ha sido el corazón de celebraciones
+                tarapotinas. Lo que comenzó como un homenaje a las recetas de la
+                abuela Angela en la intimidad del hogar, hoy es un destino en
+                San Martín para quienes buscan la perfección en la pastelería
+                artesanal, fusionando insumos premium con el abrazo cálido de
+                nuestra tradición familiar.
               </motion.p>
 
               <motion.div
@@ -72,25 +75,10 @@ export default function Nosotros() {
                 id="nosotros-quote-callout"
               >
                 <p className="font-sans text-base sm:text-lg font-bold text-dark-chocolate italic leading-relaxed">
-                  "Cada bocado es un homenaje a nuestra historia. Usamos el mismo mandil, el mismo cariño y la misma paciencia que mi abuela Angela nos enseñó."
+                  "Cada bocado es un homenaje a nuestra historia. Usamos el
+                  mismo mandil, el mismo cariño y la misma paciencia que mi
+                  abuela Angela nos enseñó."
                 </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="pt-6 text-center md:text-left"
-              >
-                <Link
-                  to="/historia"
-                  className="inline-flex items-center gap-2.5 px-8 py-4 bg-dark-chocolate text-primary-bg font-sans rounded-xl text-xs font-semibold tracking-widest uppercase hover:bg-opacity-95 hover:translate-y-[-2px] transition-all duration-300 shadow-md group cursor-pointer"
-                  id="nosotros-story-trigger"
-                >
-                  <span>Descubre Nuestra Historia</span>
-                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
               </motion.div>
             </div>
 
@@ -104,29 +92,33 @@ export default function Nosotros() {
               id="nosotros-stats-bar"
             >
               <div className="text-center md:text-left">
-                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">10+</span>
+                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">
+                  10+
+                </span>
                 <span className="font-sans text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-dark-chocolate mt-1 block">
                   Años
                 </span>
               </div>
               <div className="text-center md:text-left">
-                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">∞</span>
+                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">
+                  ∞
+                </span>
                 <span className="font-sans text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-dark-chocolate mt-1 block">
                   Sonrisas
                 </span>
               </div>
               <div className="text-center md:text-left">
-                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">1</span>
+                <span className="block font-display text-3xl sm:text-4xl text-vibrant-coral leading-none">
+                  1
+                </span>
                 <span className="font-sans text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-dark-chocolate mt-1 block">
                   Maestra pastelera
                 </span>
               </div>
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>
   );
 }
-

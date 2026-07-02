@@ -1,17 +1,33 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { motion } from "motion/react";
+import { asset } from "../lib/asset";
+import { useSectionNav } from "../lib/useSectionNav";
 
 export default function Hero() {
+  const goToSection = useSectionNav();
+
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12 md:py-24" id="hero-section">
-      {/* Background Video with adjusted exposure (brightness) and opacity */}
+    <section
+      className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12 md:py-24"
+      id="hero-section"
+    >
+      {/* Background Video with adjusted exposure (brightness) and opacity.
+          The poster paints instantly so it becomes the LCP element while the
+          video streams in behind it. */}
       <video
         autoPlay
         loop
         muted
         playsInline
+        preload="metadata"
+        poster={asset("hero-poster.webp")}
         className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-80 brightness-[0.85]"
       >
-        <source src="beacons-bg2.mp4" type="video/mp4" />
+        <source src={asset("beacons-bg2.mp4")} type="video/mp4" />
       </video>
 
       {/* Subtle light overlay to guarantee dark text readability */}
@@ -24,11 +40,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-sm font-bold tracking-[0.25em] text-vibrant-coral mb-4 block"
+            className="font-sans text-sm font-bold tracking-[0.25em] text-action-strong mb-4 block"
           >
             ARTESANÍA EN CADA BOCADO
           </motion.span>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,7 +60,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-sans text-base sm:text-lg text-on-surface-variant max-w-md mb-12 font-light leading-relaxed"
           >
-            Recetas familiares que han trascendido generaciones, elaboradas con los ingredientes más finos para crear momentos inolvidables.
+            Recetas familiares que han trascendido generaciones, elaboradas con
+            los ingredientes más finos para crear momentos inolvidables.
           </motion.p>
 
           <motion.div
@@ -58,14 +75,18 @@ export default function Hero() {
               href="#carta"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById("carta")?.scrollIntoView({ behavior: "smooth" });
+                goToSection("carta");
               }}
             >
               Ver Nuestra Carta
             </a>
             <a
               className="inline-block border border-dark-chocolate text-dark-chocolate px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:bg-dark-chocolate hover:text-primary-bg transition-all text-center cursor-pointer"
-              href="#/historia"
+              href="#nosotros"
+              onClick={(e) => {
+                e.preventDefault();
+                goToSection("nosotros");
+              }}
             >
               Nuestro Legado
             </a>
@@ -83,28 +104,12 @@ export default function Hero() {
             <div className="arch-frame w-full aspect-[4/5] bg-dusty-rose overflow-hidden shadow-2xl relative">
               <img
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                src="fix-angelica.png"
+                src={asset("fix-angelica.webp")}
                 alt="La Nieta de Portella - Tarta Premium de Bodas"
                 referrerPolicy="no-referrer"
               />
             </div>
-            
-            {/* Signature Tag (Angelica Vela - Maestra pastelera) */}
-            <div
-              className="absolute top-[-20px] left-1/2 -translate-x-1/2 translate-y-0 sm:top-[32%] sm:left-[-60px] sm:translate-x-0 sm:-translate-y-1/2 z-20 bg-cream-surface/95 backdrop-blur-xs px-6 py-3 border border-dark-chocolate/10 text-center rounded-xl rotate-0 min-w-[170px]"
-              style={{
-                boxShadow: "rgba(40, 24, 8, 0.12) 0px 8px 24px, rgba(40, 24, 8, 0.08) 0px 4px 8px",
-              }}
-              id="hero-signature-tag"
-            >
-              <p className="font-display text-xl sm:text-2xl text-[#EB4329] leading-none">
-                Angelica Vela
-              </p>
-              <p className="font-sans text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#281808] font-bold mt-1.5">
-                Maestra pastelera
-              </p>
-            </div>
-            
+
             {/* Rotating Circle Badge Overlapping */}
             <motion.div
               initial={{ opacity: 0, rotate: -45 }}
@@ -132,17 +137,16 @@ export default function Hero() {
               {/* Static center image — S6 sticker */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6">
                 <img
-                  src="/lanietadeportella/S6.png"
+                  src={asset("S6.png")}
                   alt="La Nieta de Portella"
                   className="w-full h-full object-contain"
                   draggable={false}
                 />
               </div>
-          </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
-
