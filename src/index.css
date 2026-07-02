@@ -6,16 +6,17 @@
 
   --color-primary-bg: #fff8f5;
   --color-primary-container: #fde9e1;
-  --color-secondary-bg: #E9E3C8;
-  --color-muted-accent: #E7C4C1;
-  --color-action-cta: #EB4329;
+  --color-secondary-bg: #e9e3c8;
+  --color-muted-accent: #e7c4c1;
+  --color-action-cta: #eb4329;
   --color-text-main: #281808;
+  --color-on-surface-variant: #5b4636;
 
   --color-secondary: #b51b04;
-  --color-dusty-rose: #E7C4C1;
-  --color-vibrant-coral: #EB4329;
+  --color-dusty-rose: #e7c4c1;
+  --color-vibrant-coral: #eb4329;
   --color-dark-chocolate: #281808;
-  --color-cream-surface: #E9E3C8;
+  --color-cream-surface: #e9e3c8;
 }
 
 /* Custom Utilities and Base overrides */
@@ -28,7 +29,7 @@
 /* ── Category card 3D forward-tilt on hover ── */
 .cat-card-3d {
   transition:
-    transform  0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom center;
   will-change: transform;
@@ -38,7 +39,6 @@
   transform: rotateX(12deg) translateY(-4px);
   box-shadow: rgba(40, 24, 8, 0.18) 0px 22px 44px;
 }
-
 
 /* Base body style for global consistency */
 body {
@@ -76,7 +76,7 @@ html {
 }
 
 .input-editorial:focus {
-  border-bottom-color: #EB4329;
+  border-bottom-color: #eb4329;
 }
 
 .hover-lift {
@@ -86,4 +86,3 @@ html {
 .hover-lift:hover {
   transform: translateY(-8px);
 }
-
