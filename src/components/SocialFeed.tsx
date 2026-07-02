@@ -4,52 +4,46 @@
  */
 
 import { motion } from "motion/react";
-import { Instagram, Heart, MessageCircle } from "lucide-react";
+import { Heart } from "lucide-react";
 import { INSTAGRAM_USERNAME } from "../constants";
 
 export default function SocialFeed() {
   const feedItems = [
     {
       id: 1,
-      image: "cupcake-gigante.jpeg",
-      likes: "342",
-      comments: "14",
-      alt: "Un bocado de torta húmeda de chocolate"
+      image: "ig-post-1.jpeg",
+      url: "https://www.instagram.com/p/DYDxhKdDvW9/?igsh=d2luNHAzNm94Z3Az",
+      alt: "Post de Instagram - La Nieta de Portella"
     },
     {
       id: 2,
-      image: "torta-mama.jpeg",
-      likes: "856",
-      comments: "25",
-      alt: "Manos amasando recetas familiares con harina"
+      image: "ig-post-2.jpeg",
+      url: "https://www.instagram.com/p/CrjmrA_Lg8v/?igsh=d2E4cmV0ZHpkNmly",
+      alt: "Post de Instagram - La Nieta de Portella"
     },
     {
       id: 3,
-      image: "cupcakes-caja6.jpeg",
-      likes: "421",
-      comments: "8",
-      alt: "Croissants recién horneados y dorados"
+      image: "ig-post-3.jpeg",
+      url: "https://www.instagram.com/p/ClgfPmyu3yb/?igsh=MTllcmtsaDJwb3cxaQ==",
+      alt: "Post de Instagram - La Nieta de Portella"
     },
     {
       id: 4,
-      image: "cafe-taza.jpeg",
-      likes: "289",
-      comments: "32",
-      alt: "Arte latte de capuccino de especialidad"
+      image: "ig-post-4.jpeg",
+      url: "https://www.instagram.com/p/Crvpvmmuiid/?igsh=czMyYjFwb3Zia2U1",
+      alt: "Post de Instagram - La Nieta de Portella"
     },
     {
       id: 5,
-      image: "caja-regalo.jpeg",
-      likes: "567",
-      comments: "19",
-      alt: "Interiores minimalistas y elegantes de nuestra pastelería"
+      image: "ig-post-5.jpeg",
+      url: "https://www.instagram.com/p/CvsBb1BJuMU/?igsh=MTU5MWswMTZ3bnRobg==",
+      alt: "Post de Instagram - La Nieta de Portella"
     },
     {
       id: 6,
-      image: "cupcake-individual.jpeg",
-      likes: "398",
-      comments: "22",
-      alt: "Caja de dulces premium listos para delivery"
+      image: "ig-post-6.jpeg",
+      url: "https://www.instagram.com/p/Cs3lyFVtLf3/?igsh=OGptMjZhaDRncXpp",
+      alt: "Post de Instagram - La Nieta de Portella"
     }
   ];
 
@@ -81,7 +75,7 @@ export default function SocialFeed() {
           {feedItems.map((item) => (
             <motion.a
               key={item.id}
-              href={`https://instagram.com/${INSTAGRAM_USERNAME}`}
+              href={item.url}
               target="_blank"
               rel="noreferrer"
               initial={{ opacity: 0, y: 15 }}
@@ -95,19 +89,11 @@ export default function SocialFeed() {
                 src={item.image}
                 alt={item.alt}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                referrerPolicy="no-referrer"
               />
 
-              {/* Hover Overlay with Likes/Comments icons */}
-              <div className="absolute inset-0 bg-dark-chocolate/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 text-white">
-                <div className="flex items-center gap-1.5 text-xs font-medium font-sans">
-                  <Heart className="w-4 h-4 fill-current text-action-cta" />
-                  <span>{item.likes}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-medium font-sans">
-                  <MessageCircle className="w-4 h-4 fill-current text-primary-bg" />
-                  <span>{item.comments}</span>
-                </div>
+              {/* Hover Overlay — solo corazón rojo */}
+              <div className="absolute inset-0 bg-dark-chocolate/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <Heart className="w-8 h-8 fill-current text-action-cta drop-shadow-lg" />
               </div>
             </motion.a>
           ))}

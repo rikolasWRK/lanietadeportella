@@ -43,7 +43,6 @@ export default function CustomCakeBuilder() {
     const url = `https://api.whatsapp.com/send?phone=${CONTACT_WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
   };
-
   return (
     <section id="personalizar" className="py-24 bg-cream-surface/30 text-dark-chocolate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +98,11 @@ export default function CustomCakeBuilder() {
 
                 <div className="pt-4">
                   <button
-                    onClick={() => setIsBuilderOpen(true)}
+                    onClick={() => {
+                      const text = `*¡Hola La Nieta de Portella! Me gustaría cotizar y personalizar una torta a medida para una ocasión especial.* 🎂✨\n\n¿Podrían brindarme más información sobre las opciones de sabores, tamaños y disponibilidad de agenda? ¡Muchas gracias!`;
+                      const url = `https://api.whatsapp.com/send?phone=${CONTACT_WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`;
+                      window.open(url, "_blank");
+                    }}
                     className="px-8 py-4 bg-dark-chocolate text-primary-bg font-sans rounded-xl font-medium tracking-wide flex items-center gap-2.5 transition-all hover:bg-opacity-95 hover:translate-y-[-2px] duration-300 shadow-md group cursor-pointer"
                     id="personalize-cake-trigger"
                   >
@@ -112,13 +115,15 @@ export default function CustomCakeBuilder() {
 
               {/* Right Column: Baker Decorating Golden Cake */}
               <div className="md:col-span-5 flex justify-center">
-                <div className="relative w-full max-w-sm aspect-[4/5] bg-secondary-bg/25 p-2 border border-dark-chocolate/10 rounded-t-full rounded-b-xl overflow-hidden shadow-lg">
-                  <div className="arch-frame w-full h-full">
-                    <img
-                      src="torta-mama.jpeg"
-                      alt="Torta personalizada de ejemplo"
+                <div className="relative w-full max-w-sm aspect-[4/5] bg-secondary-bg p-3 border border-dark-chocolate/10 rounded-t-full rounded-b-xl overflow-hidden shadow-lg">
+                  <div className="w-full h-full rounded-t-full rounded-b-lg overflow-hidden">
+                    <video
+                      src="webDSING1.0.mp4"
                       className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
                     />
                   </div>
                 </div>

@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion } from "motion/react";
 
 export default function Hero() {
@@ -59,14 +54,18 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4"
           >
             <a
-              className="inline-block bg-vibrant-coral text-primary-bg px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:opacity-90 transition-all active:scale-95 text-center shadow-md"
+              className="inline-block bg-vibrant-coral text-primary-bg px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:opacity-90 transition-all active:scale-95 text-center shadow-md cursor-pointer"
               href="#carta"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("carta")?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               Ver Nuestra Carta
             </a>
             <a
-              className="inline-block border border-dark-chocolate text-dark-chocolate px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:bg-dark-chocolate hover:text-primary-bg transition-all text-center"
-              href="#nosotros"
+              className="inline-block border border-dark-chocolate text-dark-chocolate px-10 py-5 rounded-full font-sans text-xs font-semibold tracking-widest uppercase hover:bg-dark-chocolate hover:text-primary-bg transition-all text-center cursor-pointer"
+              href="#/historia"
             >
               Nuestro Legado
             </a>
@@ -88,6 +87,22 @@ export default function Hero() {
                 alt="La Nieta de Portella - Tarta Premium de Bodas"
                 referrerPolicy="no-referrer"
               />
+            </div>
+            
+            {/* Signature Tag (Angelica Vela - Maestra pastelera) */}
+            <div
+              className="absolute top-[-20px] left-1/2 -translate-x-1/2 translate-y-0 sm:top-[32%] sm:left-[-60px] sm:translate-x-0 sm:-translate-y-1/2 z-20 bg-cream-surface/95 backdrop-blur-xs px-6 py-3 border border-dark-chocolate/10 text-center rounded-xl rotate-0 min-w-[170px]"
+              style={{
+                boxShadow: "rgba(40, 24, 8, 0.12) 0px 8px 24px, rgba(40, 24, 8, 0.08) 0px 4px 8px",
+              }}
+              id="hero-signature-tag"
+            >
+              <p className="font-display text-xl sm:text-2xl text-[#EB4329] leading-none">
+                Angelica Vela
+              </p>
+              <p className="font-sans text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#281808] font-bold mt-1.5">
+                Maestra pastelera
+              </p>
             </div>
             
             {/* Rotating Circle Badge Overlapping */}
@@ -123,7 +138,7 @@ export default function Hero() {
                   draggable={false}
                 />
               </div>
-            </motion.div>
+          </motion.div>
           </motion.div>
         </div>
       </div>

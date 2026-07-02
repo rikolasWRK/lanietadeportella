@@ -26,7 +26,7 @@ export default function Catalog() {
     },
     {
       id: "cafe" as const,
-      name: "Café DON ANTONIO",
+      name: "DON ANTONIO",
       subtitle: "NUESTRA HERENCIA CAFETALERA",
       image: "AntucoBG.png",
       tagline: "LÍNEA DE CAFÉ PREMIUM"
@@ -102,9 +102,13 @@ export default function Catalog() {
                   className="arch-frame cat-card-3d w-full aspect-[4/5] bg-cream-surface/20 mb-5 overflow-hidden relative border border-dark-chocolate/10"
                   style={{ boxShadow: "rgba(0,0,0,0.04) 0px 1px 4px" }}
                 >
-                  {/* Subtle dark overlay (#281808) — fades out on hover */}
+                  {/* Subtle dark/cream overlay — fades out on hover */}
                   <div
-                    className="absolute inset-0 bg-[#281808]/60 transition-opacity duration-500 z-10 group-hover:opacity-0 pointer-events-none"
+                    className={`absolute inset-0 transition-all duration-500 z-10 group-hover:opacity-0 group-hover:backdrop-blur-none pointer-events-none ${
+                      cat.id === "cafe"
+                        ? "bg-[#C6BDA1]/75 backdrop-blur-[3px]"
+                        : "bg-[#281808]/60"
+                    }`}
                   />
 
                   {/* Floating category icon — starts large/centered, shrinks and moves to top-center on hover */}

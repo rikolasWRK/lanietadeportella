@@ -4,10 +4,26 @@
  */
 
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Search, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 
 export default function Navigation() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (id: string) => {
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    };
+    if (location.pathname === "/") {
+      doScroll();
+    } else {
+      navigate("/");
+      setTimeout(doScroll, 300);
+    }
+  };
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -39,11 +55,11 @@ export default function Navigation() {
   }, [scrollProgress]);
 
   const navLinks = [
-    { label: "Nosotros",             href: "#nosotros" },
-    { label: "La Carta",             href: "#carta" },
+    { label: "Nosotros",             href: "#/historia" },
+    { label: "La Carta",             href: "#", scrollId: "carta" },
     { label: "Tortas Personalizadas",href: "#personalizar" },
     { label: "Café Don Antonio",     href: "#cafe-antonio" },
-    { label: "Contacto",             href: "#contacto" }
+    { label: "Contacto",             href: "#/contacto" }
   ];
 
   return (
@@ -93,19 +109,19 @@ export default function Navigation() {
             {/* Left Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center gap-4 lg:gap-8 z-10">
               <a
-                href="#nosotros"
+                href="#/historia"
                 className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
               >
                 Nosotros
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
               </a>
-              <a
-                href="#carta"
+              <button
+                onClick={() => scrollToSection("carta")}
                 className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
               >
                 Carta/Tienda
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
-              </a>
+              </button>
             </div>
 
             {/* Logo — scales down slightly on scroll */}
@@ -135,7 +151,7 @@ export default function Navigation() {
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-action-cta transition-all duration-300 group-hover:w-full" />
                 </a>
                 <a
-                  href="#contacto"
+                  href="#/contacto"
                   className="font-sans text-xs font-medium tracking-widest text-dark-chocolate hover:text-action-cta transition-colors duration-300 uppercase py-1 relative group"
                 >
                   Contacto
@@ -182,7 +198,15 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      if ("scrollId" in link && link.scrollId) {
+                        e.preventDefault();
+                        setIsMobileMenuOpen(false);
+                        scrollToSection(link.scrollId as string);
+                      } else {
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
                     className="block font-sans text-sm font-medium tracking-wider text-dark-chocolate/90 uppercase hover:text-action-cta hover:bg-dark-chocolate/5 px-3 py-2.5 rounded-lg transition-all"
                   >
                     {link.label}
